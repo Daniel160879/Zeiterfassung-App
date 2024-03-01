@@ -30,7 +30,7 @@ class ProjectItem extends StatelessWidget {
             },
             child: Container(
               alignment: Alignment.center,
-              height: 50,
+              height: 65,
               width: 175,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
@@ -38,7 +38,7 @@ class ProjectItem extends StatelessWidget {
               ),
               child: Text(
                 project.title,
-                style: myTextStyle,
+                style: myBttnTextStyle,
               ),
             ),
           )

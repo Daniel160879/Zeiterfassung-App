@@ -55,17 +55,24 @@ class _ChooseWorkingSpaceState extends State<ChooseWorkingSpace> {
                   ),
                   child: Center(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+                        const Spacer(),
                         const Text(
                           'Project',
-                          style: myAppBarTextStyle,
+                          style: myHeadBttnTextStyle,
                         ),
+                        const Spacer(),
                         const Divider(
                           color: Colors.black,
                           thickness: 2,
                         ),
-                        Text(widget.project.title),
+                        const Spacer(),
+                        Text(
+                          widget.project.title,
+                          style: myTextStyle,
+                        ),
+                        const Spacer()
                       ],
                     ),
                   ),

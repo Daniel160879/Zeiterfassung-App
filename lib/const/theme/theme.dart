@@ -13,7 +13,7 @@ const myWorkingSpaceButtonStyle = ButtonStyle(
   ),
 );
 const myProjectButtonStyle = ButtonStyle(
-  fixedSize: MaterialStatePropertyAll(Size(175, 60)),
+  fixedSize: MaterialStatePropertyAll(Size(200, 100)),
   backgroundColor: MaterialStatePropertyAll(
     Color.fromARGB(255, 80, 73, 72),
   ),
@@ -27,7 +27,7 @@ const myAppBarTextStyle = TextStyle(
 
 const myClockStyle = TextStyle(
   color: Color.fromARGB(255, 255, 255, 255),
-  fontSize: 65,
+  fontSize: 90,
   fontWeight: FontWeight.bold,
 );
 
@@ -36,3 +36,9 @@ const myTextStyle = TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.bold,
 );
+
+const myBttnTextStyle = TextStyle(
+    color: Color.fromARGB(255, 255, 255, 255), fontSize: 24, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic);
+
+const myHeadBttnTextStyle = TextStyle(
+    color: Color.fromARGB(255, 255, 255, 255), fontSize: 30, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic);
