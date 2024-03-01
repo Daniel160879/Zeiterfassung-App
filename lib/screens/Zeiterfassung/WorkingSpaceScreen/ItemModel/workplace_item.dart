@@ -22,8 +22,8 @@ class WorkPlaceItem extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => TimeRecordingScreen(
-                      workPlace: workplace.title,
-                      project: project.title,
+                      project: project,
+                      workPlace: workplace,
                     ),
                   ));
             },

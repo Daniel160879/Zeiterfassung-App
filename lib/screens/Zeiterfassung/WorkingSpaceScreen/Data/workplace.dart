@@ -9,14 +9,4 @@ class WorkPlace {
     required this.title,
     required this.color,
   });
-
-  WorkPlace copyWith({
-    String? title,
-    Color? color,
-  }) {
-    return WorkPlace(
-      title: title ?? this.title,
-      color: color ?? this.color,
-    );
-  }
 }
