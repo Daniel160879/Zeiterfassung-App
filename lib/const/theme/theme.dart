@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
 
-const myTextStyle = TextStyle(
-  color: Color.fromARGB(255, 255, 255, 255),
-  fontSize: 16,
-  fontWeight: FontWeight.bold,
-);
-
 const myHomeButtonStyle = ButtonStyle(
   fixedSize: MaterialStatePropertyAll(Size(175, 60)),
   backgroundColor: MaterialStatePropertyAll(
@@ -34,5 +28,11 @@ const myAppBarTextStyle = TextStyle(
 const myClockStyle = TextStyle(
   color: Color.fromARGB(255, 255, 255, 255),
   fontSize: 65,
+  fontWeight: FontWeight.bold,
+);
+
+const myTextStyle = TextStyle(
+  color: Color.fromARGB(255, 255, 255, 255),
+  fontSize: 16,
   fontWeight: FontWeight.bold,
 );

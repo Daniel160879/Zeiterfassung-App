@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/ProjectScreen/Data/project.dart';
-import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/ProjectScreen/Item/project_item.dart';
+import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/ProjectScreen/ItemModel/project_item.dart';
 import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/ProjectScreen/Repository/project_repository.dart';
 
 class ChooseProjectScreen extends StatefulWidget {

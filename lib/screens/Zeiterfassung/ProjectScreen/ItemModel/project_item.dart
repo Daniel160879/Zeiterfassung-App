@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/const/theme/theme.dart';
 import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/ProjectScreen/Data/project.dart';
-import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/WorkingSpaceScreen/working_space.dart';
+import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/WorkingSpaceScreen/workingspace_screen.dart';
 
 class ProjectItem extends StatelessWidget {
   const ProjectItem({
@@ -24,7 +24,7 @@ class ProjectItem extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ChooseWorkingSpace(
-                      project: project.title,
+                      project: project,
                     ),
                   ));
             },
