@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meine_zeiterfassungs_app/const/theme/theme.dart';
 import 'package:meine_zeiterfassungs_app/screens/Reg%20und%20Log/Reg%20und%20Log%20Screen/login_screen.dart';
 import 'package:meine_zeiterfassungs_app/screens/Reg%20und%20Log/Reg%20und%20Log%20Screen/registration_screen.dart';
 
@@ -49,7 +50,7 @@ class StartScreen extends StatelessWidget {
                 },
                 child: const Text(
                   'Registrierung',
-                  style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                  style: myBttnTextStyle,
                 ),
               ),
               ElevatedButton(
@@ -68,7 +69,7 @@ class StartScreen extends StatelessWidget {
                 },
                 child: const Text(
                   'Login',
-                  style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                  style: myBttnTextStyle,
                 ),
               ),
             ],

@@ -122,18 +122,6 @@ class _TimeRecordingScreenState extends State<TimeRecordingScreen> {
             const SizedBox(
               height: 25,
             ),
-            Container(
-              alignment: Alignment.center,
-              height: 200,
-              width: 300,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(12),
-                ),
-                color: Color.fromARGB(255, 80, 73, 72),
-              ),
-              child: const Text('data'),
-            ),
           ],
         ),
       ),

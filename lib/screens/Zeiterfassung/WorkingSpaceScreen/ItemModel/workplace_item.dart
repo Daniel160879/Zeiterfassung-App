@@ -37,7 +37,7 @@ class WorkPlaceItem extends StatelessWidget {
               ),
               child: Text(
                 workplace.title,
-                style: myTextStyle,
+                style: myBttnTextStyle,
               ),
             ),
           )

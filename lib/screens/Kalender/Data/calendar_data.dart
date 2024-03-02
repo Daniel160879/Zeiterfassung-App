@@ -1,4 +1,4 @@
-class Event {
+class Urlaub {
   final String title;
-  Event(this.title);
+  Urlaub(this.title);
 }

@@ -24,4 +24,8 @@ final List<Project> projectMock = [
     title: 'Treppenbau',
     color: const Color.fromARGB(255, 80, 73, 72),
   ),
+  Project(
+    title: 'Treppenbau',
+    color: const Color.fromARGB(255, 80, 73, 72),
+  ),
 ];

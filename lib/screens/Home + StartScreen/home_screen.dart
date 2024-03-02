@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/const/theme/theme.dart';
 import 'package:meine_zeiterfassungs_app/screens/Kalender/calendar_screen.dart';
+import 'package:meine_zeiterfassungs_app/screens/Logout/logout.screen.dart';
+import 'package:meine_zeiterfassungs_app/screens/Projekt%20anlegen/create_project_screen.dart';
+import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/ProjectScreen/ItemModel/project_item.dart';
 import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/ProjectScreen/project_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -29,9 +32,9 @@ class HomeScreen extends StatelessWidget {
               ElevatedButton(
                 style: myHomeButtonStyle,
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ChooseProjectScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const ChooseProjectScreen()));
                 },
-                child: const Text('Zeiterfassung', style: myTextStyle),
+                child: const Text('Zeiterfassung', style: myBttnTextStyle),
               ),
               ElevatedButton(
                 style: myHomeButtonStyle,
@@ -42,12 +45,26 @@ class HomeScreen extends StatelessWidget {
                         builder: (context) => const CalendarScreen(),
                       ));
                 },
-                child: const Text('Kalender', style: myTextStyle),
+                child: const Text('Kalender', style: myBttnTextStyle),
               ),
               ElevatedButton(
                 style: myHomeButtonStyle,
-                onPressed: () {},
-                child: const Text('Logout', style: myTextStyle),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CreateProjectScreen(
+                                createProjectItem: const [ProjectItem],
+                              )));
+                },
+                child: const Text('Projekt anlegen', style: myBttnTextStyle),
+              ),
+              ElevatedButton(
+                style: myHomeButtonStyle,
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const LogoutScreen()));
+                },
+                child: const Text('Logout', style: myBttnTextStyle),
               ),
             ],
           ),

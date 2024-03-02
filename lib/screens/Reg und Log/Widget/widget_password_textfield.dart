@@ -7,12 +7,12 @@ class MyPasswordTextField extends StatefulWidget {
   State<MyPasswordTextField> createState() => _MyTextFieldState();
 }
 
-TextEditingController passwordController = TextEditingController(text: '');
+TextEditingController _passwordController = TextEditingController(text: '');
 
 class _MyTextFieldState extends State<MyPasswordTextField> {
   @override
   void dispose() {
-    passwordController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -20,7 +20,7 @@ class _MyTextFieldState extends State<MyPasswordTextField> {
   Widget build(BuildContext context) {
     return TextField(
       textAlignVertical: TextAlignVertical.center,
-      controller: passwordController,
+      controller: _passwordController,
       style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         focusedBorder: const OutlineInputBorder(
