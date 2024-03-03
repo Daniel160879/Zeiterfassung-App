@@ -12,9 +12,7 @@ class ChooseProjectScreen extends StatefulWidget {
 
 class _ChooseProjectScreenState extends State<ChooseProjectScreen> {
   final projects = ProjectRepository().getProject();
-
   final List<Project> projectList = [];
-
   final List projectItem = [];
 
   @override

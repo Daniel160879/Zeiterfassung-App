@@ -7,6 +7,5 @@ class CreateProjectRepository {
 }
 
 final List<CreateProject> createProjectMock = [
-  CreateProject(title: 'qweqw', discription: 'werwerwe', projectTime: '3,00'),
-  CreateProject(title: 'qweqw', discription: 'werwerwe', projectTime: '3,00'),
+  CreateProject(title: 'Geländerbau', discription: 'werwerwe', projectTime: '3,00'),
 ];

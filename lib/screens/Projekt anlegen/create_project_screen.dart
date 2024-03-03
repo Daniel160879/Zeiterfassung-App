@@ -26,16 +26,16 @@ class CreateProjectScreen extends StatelessWidget {
           decoration: const BoxDecoration(
             image: DecorationImage(image: AssetImage('assets/background/background.png'), fit: BoxFit.cover),
           ),
-          child: ListView(scrollDirection: Axis.vertical, children: [
-            Center(
-              child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          child: Center(
+            child: ListView(scrollDirection: Axis.vertical, children: [
+              Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                 for (final createProject in createProjects)
                   CreateProjectItem(
                     createProject: createProject,
                   )
               ]),
-            ),
-          ]),
+            ]),
+          ),
         ));
   }
 }

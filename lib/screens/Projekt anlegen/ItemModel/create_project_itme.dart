@@ -15,41 +15,21 @@ class CreateProjectItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(35),
         color: null,
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Placeholder(
-            color: Color.fromARGB(0, 80, 73, 72),
-            child: Icon(
-              Icons.child_care_rounded,
-              color: Colors.white,
-              size: 150,
-            ),
-          ),
-          Container(
-            height: 150,
-            width: 150,
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 80, 73, 72),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      height: 20,
-                      width: 125,
-                      color: Colors.red,
-                    ),
-                  ],
+      child: Center(
+        child: Column(
+          children: [
+            Container(
+              height: 200,
+              width: 300,
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 80, 73, 72),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(25),
                 ),
-              ],
+              ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }
