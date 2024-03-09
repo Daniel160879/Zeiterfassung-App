@@ -6,9 +6,11 @@ import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/WorkingSpaceScree
 import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/WorkingSpaceScreen/Repository/workplace_repository.dart';
 
 class ChooseWorkingSpace extends StatefulWidget {
+  const ChooseWorkingSpace({
+    super.key,
+    required this.project,
+  });
   final Project project;
-
-  const ChooseWorkingSpace({super.key, required this.project});
 
   @override
   State<ChooseWorkingSpace> createState() => _ChooseWorkingSpaceState();
@@ -81,7 +83,7 @@ class _ChooseWorkingSpaceState extends State<ChooseWorkingSpace> {
                 for (final workPlaceList in workPlace)
                   WorkPlaceItem(
                     project: widget.project,
-                    workplace: workPlaceList,
+                    workPlace: workPlaceList,
                   ) //wefwefwefwefwef
               ],
             ),

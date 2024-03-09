@@ -14,24 +14,28 @@ class MitarbeiterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Mitarbeiter Übersicht',
-            style: myAppBarTextStyle,
-          ),
-          centerTitle: true,
-          backgroundColor: const Color.fromARGB(255, 80, 73, 72),
+      appBar: AppBar(
+        title: const Text(
+          'Mitarbeiter Übersicht',
+          style: myAppBarTextStyle,
         ),
-        body: Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(
-                    'assets/background/background.png',
-                  ),
-                  fit: BoxFit.cover),
-            ),
-            child: Column(
-              children: [for (final mitarbeiter in mitarbeiters) EmployersItemModel(mitarbeiter: mitarbeiter)],
-            )));
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 80, 73, 72),
+      ),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(
+                'assets/background/background.png',
+              ),
+              fit: BoxFit.cover),
+        ),
+        child: Column(
+          children: [
+            for (final mitarbeiter in mitarbeiters) EmployersItemModel(mitarbeiter: mitarbeiter),
+          ],
+        ),
+      ),
+    );
   }
 }

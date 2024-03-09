@@ -3,8 +3,6 @@ import 'package:meine_zeiterfassungs_app/const/theme/theme.dart';
 import 'package:meine_zeiterfassungs_app/screens/Kalender/calendar_screen.dart';
 import 'package:meine_zeiterfassungs_app/screens/Logout/logout.screen.dart';
 import 'package:meine_zeiterfassungs_app/screens/Mitarbeiter/employers.dart';
-import 'package:meine_zeiterfassungs_app/screens/Projekt%20anlegen/create_project_screen.dart';
-import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/ProjectScreen/ItemModel/project_item.dart';
 import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/ProjectScreen/project_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -47,18 +45,6 @@ class HomeScreen extends StatelessWidget {
                       ));
                 },
                 child: const Text('Kalender', style: myBttnTextStyle),
-              ),
-              ElevatedButton(
-                style: myHomeButtonStyle,
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CreateProjectScreen(
-                                createProjectItem: const [ProjectItem],
-                              )));
-                },
-                child: const Text('Projekt anlegen', style: myBttnTextStyle),
               ),
               ElevatedButton(
                 style: myHomeButtonStyle,

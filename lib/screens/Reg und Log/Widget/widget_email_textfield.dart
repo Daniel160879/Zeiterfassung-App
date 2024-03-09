@@ -12,8 +12,8 @@ TextEditingController _emailController = TextEditingController(text: '');
 class _MyEmailState extends State<MyEmailTextField> {
   @override
   void dispose() {
-    _emailController.dispose();
     super.dispose();
+    _emailController.clear();
   }
 
   @override

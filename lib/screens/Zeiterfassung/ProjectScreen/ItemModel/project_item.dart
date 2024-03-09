@@ -30,7 +30,7 @@ class ProjectItem extends StatelessWidget {
             },
             child: Container(
               alignment: Alignment.center,
-              height: 65,
+              height: 75,
               width: 175,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25),

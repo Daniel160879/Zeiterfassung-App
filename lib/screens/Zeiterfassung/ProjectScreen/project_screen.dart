@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:meine_zeiterfassungs_app/const/theme/theme.dart';
 import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/ProjectScreen/Data/project.dart';
 import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/ProjectScreen/ItemModel/project_item.dart';
+import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/ProjectScreen/Projekt%20anlegen/create_project_screen.dart';
 import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/ProjectScreen/Repository/project_repository.dart';
 
 class ChooseProjectScreen extends StatefulWidget {
@@ -31,12 +33,23 @@ class _ChooseProjectScreenState extends State<ChooseProjectScreen> {
               fit: BoxFit.fill),
         ),
         child: Center(
-            child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          for (final project in projects)
-            ProjectItem(
-              project: project,
-            )
-        ])),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                style: myHomeButtonStyle,
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateProjectScreen()));
+                },
+                child: const Text('Projekt anlegen', style: myBttnTextStyle),
+              ),
+              for (final project in projects)
+                ProjectItem(
+                  project: project,
+                )
+            ],
+          ),
+        ),
       ),
     );
   }

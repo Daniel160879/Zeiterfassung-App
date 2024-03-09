@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meine_zeiterfassungs_app/screens/Projekt%20anlegen/Data/data.dart';
+import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/ProjectScreen/Projekt%20anlegen/Data/data.dart';
 
 class CreateProjectItem extends StatelessWidget {
   const CreateProjectItem({super.key, required this.createProject});

@@ -12,7 +12,7 @@ TextEditingController _passwordController = TextEditingController(text: '');
 class _MyTextFieldState extends State<MyPasswordTextField> {
   @override
   void dispose() {
-    _passwordController.dispose();
+    _passwordController.clear();
     super.dispose();
   }
 
