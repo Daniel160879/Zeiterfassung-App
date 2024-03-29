@@ -43,9 +43,7 @@ class StartScreen extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const RegistrationScreen(
-                          user: '',
-                        ),
+                        builder: (context) => const RegistrationScreen(),
                       ));
                 },
                 child: const Text(

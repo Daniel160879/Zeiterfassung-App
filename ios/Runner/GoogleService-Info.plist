@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyApC0palMBc3odTJMDR8LA7VSPl4XrXT3I</string>
+	<key>GCM_SENDER_ID</key>
+	<string>476353664981</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.meineZeiterfassungsApp</string>
+	<key>PROJECT_ID</key>
+	<string>meine-zeiterfassung-89e24</string>
+	<key>STORAGE_BUCKET</key>
+	<string>meine-zeiterfassung-89e24.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:476353664981:ios:6a6f872132c49b2149cf5c</string>
+</dict>
+</plist>

@@ -1,20 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:meine_zeiterfassungs_app/const/Style/decoration.dart';
 import 'package:meine_zeiterfassungs_app/image_logo.dart';
-import 'package:meine_zeiterfassungs_app/screens/Reg%20und%20Log/Widget/widget_email_textfield.dart';
-import 'package:meine_zeiterfassungs_app/screens/Reg%20und%20Log/Widget/widget_password_textfield.dart';
-
+import 'package:meine_zeiterfassungs_app/screens/Reg%20und%20Log/Const/textfield_deco.dart';
 import 'package:meine_zeiterfassungs_app/screens/Reg%20und%20Log/Reg%20und%20Log%20Screen/login_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
-  const RegistrationScreen({super.key, required this.user});
-
-  final String user;
+  const RegistrationScreen({
+    super.key,
+  });
 
   @override
   State<RegistrationScreen> createState() => _RegistrationScreenState();
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  final _emailController = TextEditingController(text: '');
+  final _passwordController = TextEditingController(text: '');
+
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.clear();
+    _passwordController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,13 +38,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ),
         body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(
-                  'assets/background/background.png',
-                ),
-                fit: BoxFit.fill),
-          ),
+          decoration: myBoxdeco,
           child: Padding(
             padding: const EdgeInsets.all(24.0),
             child: ListView(children: [
@@ -44,13 +47,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   const SizedBox(
                     height: 15,
                   ),
-                  Text(widget.user),
                   const MyLogo(),
-                  const MyEmailTextField(),
                   const SizedBox(
                     height: 22,
                   ),
-                  const MyPasswordTextField(),
+                  TextField(
+                    textAlignVertical: TextAlignVertical.center,
+                    controller: _emailController,
+                    style: const TextStyle(color: Colors.white),
+                    decoration: myEmailFieldDeco,
+                  ),
+                  TextField(
+                    textAlignVertical: TextAlignVertical.center,
+                    controller: _passwordController,
+                    style: const TextStyle(color: Colors.white),
+                    decoration: myPasswordFieldDeco,
+                  ),
                   const SizedBox(
                     height: 42,
                   ),

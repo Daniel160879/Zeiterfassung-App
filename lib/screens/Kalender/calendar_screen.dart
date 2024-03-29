@@ -113,7 +113,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 },
               ),
               Container(
-                height: 25,
+                height: 35,
                 width: 380,
                 decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 80, 73, 72),

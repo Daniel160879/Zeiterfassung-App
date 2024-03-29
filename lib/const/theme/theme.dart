@@ -6,12 +6,14 @@ const myHomeButtonStyle = ButtonStyle(
     Color.fromARGB(255, 80, 73, 72),
   ),
 );
+
 const myWorkingSpaceButtonStyle = ButtonStyle(
   fixedSize: MaterialStatePropertyAll(Size(175, 60)),
   backgroundColor: MaterialStatePropertyAll(
     Color.fromARGB(255, 80, 73, 72),
   ),
 );
+
 const myProjectButtonStyle = ButtonStyle(
   fixedSize: MaterialStatePropertyAll(Size(200, 100)),
   backgroundColor: MaterialStatePropertyAll(
@@ -27,7 +29,7 @@ const myAppBarTextStyle = TextStyle(
 
 const myClockStyle = TextStyle(
   color: Color.fromARGB(255, 255, 255, 255),
-  fontSize: 65,
+  fontSize: 45,
   fontWeight: FontWeight.bold,
 );
 

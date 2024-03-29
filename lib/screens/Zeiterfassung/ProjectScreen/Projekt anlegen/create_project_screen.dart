@@ -28,8 +28,8 @@ class CreateProjectScreen extends StatelessWidget {
                 height: 75,
               ),
               Container(
-                height: 200,
-                width: 300,
+                height: 75,
+                width: 175,
                 color: const Color.fromARGB(255, 80, 73, 72),
               ),
             ],

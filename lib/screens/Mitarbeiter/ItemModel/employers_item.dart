@@ -58,7 +58,6 @@ class EmployersItemModel extends StatelessWidget {
             ),
           ],
         ),
-        ElevatedButton(onPressed: () {}, child: const Text('heute suafen wir'))
       ],
     );
   }

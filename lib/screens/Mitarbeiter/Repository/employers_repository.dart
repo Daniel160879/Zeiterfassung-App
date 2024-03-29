@@ -1,14 +1,13 @@
 import 'package:meine_zeiterfassungs_app/screens/Mitarbeiter/Data/employers.dart';
 
 class EmployersRepository {
-  List<Mitarbeiter> getEmployers() {
-    return mitarbeiterMock;
+  List<Mitarbeiter> mitarbeiterMock = [];
+
+  Future<List<Mitarbeiter>> getEmployers() async {
+    return await Future.value(mitarbeiterMock);
+  }
+
+  void addMitarbeiter(Mitarbeiter mitarbeiter) {
+    mitarbeiterMock.add(mitarbeiter);
   }
 }
-
-final List<Mitarbeiter> mitarbeiterMock = [
-  Mitarbeiter(firstName: 'Daniel', lastName: 'Händel', age: '34'),
-  Mitarbeiter(firstName: 'Daniel', lastName: 'Händel', age: '34'),
-  Mitarbeiter(firstName: 'Daniel', lastName: 'Händel', age: '34'),
-  Mitarbeiter(firstName: 'Daniel', lastName: 'Händel', age: '34'),
-];

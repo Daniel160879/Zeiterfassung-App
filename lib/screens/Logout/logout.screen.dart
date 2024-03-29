@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:meine_zeiterfassungs_app/const/Style/decoration.dart';
 import 'package:meine_zeiterfassungs_app/const/theme/theme.dart';
 
 class LogoutScreen extends StatelessWidget {
@@ -18,9 +19,7 @@ class LogoutScreen extends StatelessWidget {
           centerTitle: true,
         ),
         body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(image: AssetImage('assets/background/background.png'), fit: BoxFit.cover),
-          ),
+          decoration: myBoxdeco,
           child: Center(
             child: Padding(
               padding: const EdgeInsets.all(12),
@@ -30,12 +29,7 @@ class LogoutScreen extends StatelessWidget {
                   Image.asset('assets/images/Feierabend.png'),
                   Image.asset('assets/images/ausgestempelt.png'),
                   ElevatedButton(
-                      style: const ButtonStyle(
-                        alignment: Alignment.center,
-                        backgroundColor: MaterialStatePropertyAll(
-                          Color.fromARGB(255, 80, 73, 72),
-                        ),
-                      ),
+                      style: myHomeButtonStyle,
                       onPressed: () {
                         exit(0);
                       },
