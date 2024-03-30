@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meine_zeiterfassungs_app/const/Style/decoration.dart';
+import 'package:meine_zeiterfassungs_app/Konstanten/Style/decoration.dart';
 import 'package:meine_zeiterfassungs_app/image_logo.dart';
 import 'package:meine_zeiterfassungs_app/screens/Reg%20und%20Log/Const/textfield_deco.dart';
 import 'package:meine_zeiterfassungs_app/screens/Reg%20und%20Log/Reg%20und%20Log%20Screen/login_screen.dart';

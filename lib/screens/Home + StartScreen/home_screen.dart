@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:meine_zeiterfassungs_app/const/theme/theme.dart';
+import 'package:meine_zeiterfassungs_app/Konstanten/Style/decoration.dart';
+import 'package:meine_zeiterfassungs_app/Konstanten/theme/theme.dart';
 import 'package:meine_zeiterfassungs_app/screens/Kalender/calendar_screen.dart';
 import 'package:meine_zeiterfassungs_app/screens/Logout/logout.screen.dart';
 import 'package:meine_zeiterfassungs_app/screens/Mitarbeiter/Repository/employers_repository.dart';
 import 'package:meine_zeiterfassungs_app/screens/Mitarbeiter/employers.dart';
+import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/ProjectScreen/Repository/project_repository.dart';
 import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/ProjectScreen/project_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -11,6 +13,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ProjectRepository projectRepository = ProjectRepository();
     EmployersRepository employersRepository = EmployersRepository();
     return Scaffold(
       appBar: AppBar(
@@ -19,13 +22,7 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Home Screen', style: myAppBarTextStyle),
       ),
       body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(
-                'assets/background/background.png',
-              ),
-              fit: BoxFit.fill),
-        ),
+        decoration: myBoxdeco,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -33,7 +30,12 @@ class HomeScreen extends StatelessWidget {
               ElevatedButton(
                 style: myHomeButtonStyle,
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const ChooseProjectScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ChooseProjectScreen(
+                                projectRepository: projectRepository,
+                              )));
                 },
                 child: const Text('Zeiterfassung', style: myBttnTextStyle),
               ),

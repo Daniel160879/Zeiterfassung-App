@@ -10,51 +10,58 @@ class EmployersItemModel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        Column(
           children: [
-            const Placeholder(
-              color: Colors.transparent,
-              child: Icon(
-                Icons.child_care,
-                color: Colors.white,
-                size: 100,
-              ),
+            const SizedBox(
+              height: 30,
             ),
-            Container(
-              height: 100,
-              width: 200,
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 80, 73, 72),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const Placeholder(
+                  color: Colors.transparent,
+                  child: Icon(
+                    Icons.child_care,
+                    color: Colors.white,
+                    size: 100,
+                  ),
                 ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    height: 15,
-                    width: 150,
-                    decoration: const BoxDecoration(color: Colors.blue),
-                    child: Text(mitarbeiter.firstName),
-                  ),
-                  Container(
-                    height: 15,
-                    width: 150,
-                    decoration: const BoxDecoration(color: Colors.blue),
-                    child: Text(mitarbeiter.lastName),
-                  ),
-                  Container(
-                    height: 15,
-                    width: 150,
-                    decoration: const BoxDecoration(color: Colors.blue),
-                    child: Text(
-                      mitarbeiter.age,
+                Container(
+                  height: 100,
+                  width: 200,
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 80, 73, 72),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
                     ),
                   ),
-                ],
-              ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        height: 15,
+                        width: 150,
+                        decoration: const BoxDecoration(color: Colors.transparent),
+                        child: Text(mitarbeiter.firstName),
+                      ),
+                      Container(
+                        height: 15,
+                        width: 150,
+                        decoration: const BoxDecoration(color: Colors.transparent),
+                        child: Text(mitarbeiter.lastName),
+                      ),
+                      Container(
+                        height: 15,
+                        width: 150,
+                        decoration: const BoxDecoration(color: Colors.transparent),
+                        child: Text(
+                          mitarbeiter.age,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),

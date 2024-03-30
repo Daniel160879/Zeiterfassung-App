@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:meine_zeiterfassungs_app/const/Style/decoration.dart';
-import 'package:meine_zeiterfassungs_app/const/theme/theme.dart';
+import 'package:meine_zeiterfassungs_app/Konstanten/Style/decoration.dart';
+import 'package:meine_zeiterfassungs_app/Konstanten/theme/theme.dart';
 import 'package:meine_zeiterfassungs_app/screens/Mitarbeiter/Data/employers.dart';
 import 'package:meine_zeiterfassungs_app/screens/Mitarbeiter/ItemModel/employers_item.dart';
 import 'package:meine_zeiterfassungs_app/screens/Mitarbeiter/Repository/employers_repository.dart';
@@ -41,16 +41,44 @@ class _MitarbeiterScreenState extends State<MitarbeiterScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
+          backgroundColor: const Color.fromARGB(255, 80, 73, 72),
           title: const Text('create new employers'),
           actions: [
-            TextField(
-              controller: _firstNameController,
+            SizedBox(
+              height: 70,
+              width: 250,
+              child: TextField(
+                decoration: InputDecoration(
+                    hintText: 'first name:',
+                    labelText: 'wewer',
+                    helperText: 'wedwefwefwefr',
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+                controller: _firstNameController,
+              ),
             ),
-            TextField(
-              controller: _lastNameController,
+            const SizedBox(
+              height: 10,
             ),
-            TextField(
-              controller: _ageController,
+            SizedBox(
+              height: 55,
+              width: 250,
+              child: TextField(
+                decoration: InputDecoration(
+                    hintText: 'last name:', border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+                controller: _lastNameController,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              height: 55,
+              width: 250,
+              child: TextField(
+                decoration: InputDecoration(
+                    hintText: 'age:', border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+                controller: _ageController,
+              ),
             ),
             TextButton(
                 onPressed: () {
@@ -89,7 +117,15 @@ class _MitarbeiterScreenState extends State<MitarbeiterScreen> {
         decoration: myBoxdeco,
         child: Column(
           children: [
+            const SizedBox(
+              height: 50,
+            ),
             ElevatedButton(
+                style: const ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 80, 73, 72)),
+                  alignment: Alignment.center,
+                  fixedSize: MaterialStatePropertyAll(Size(175, 70)),
+                ),
                 onPressed: () async {
                   final mitarbeiter = await openDialog();
                   if (mitarbeiter == null || mitarbeiter.isEmpty) {
@@ -112,16 +148,6 @@ class _MitarbeiterScreenState extends State<MitarbeiterScreen> {
                         itemCount: snapshot.data!.length,
                         itemBuilder: ((context, index) {
                           return Dismissible(
-                              background: Container(
-                                height: 100,
-                                width: 100,
-                                color: Colors.red,
-                                child: const Icon(
-                                  Icons.delete,
-                                  size: 50,
-                                  color: Colors.blue,
-                                ),
-                              ),
                               onDismissed: (direction) {
                                 setState(() {
                                   widget.employersRepository.mitarbeiterMock.removeAt(index);
@@ -131,7 +157,7 @@ class _MitarbeiterScreenState extends State<MitarbeiterScreen> {
                               child: EmployersItemModel(mitarbeiter: snapshot.data![index]));
                         }));
                   } else {
-                    return const Text('data ist weg');
+                    return const Text('no data');
                   }
                 })
           ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:meine_zeiterfassungs_app/const/Style/decoration.dart';
-import 'package:meine_zeiterfassungs_app/const/theme/theme.dart';
+import 'package:meine_zeiterfassungs_app/Konstanten/Style/decoration.dart';
+import 'package:meine_zeiterfassungs_app/Konstanten/theme/theme.dart';
 import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/ProjectScreen/Data/project.dart';
 import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/ProjectScreen/Repository/project_repository.dart';
 import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/TimeRecordingScreen/Item/stop_watch.dart';

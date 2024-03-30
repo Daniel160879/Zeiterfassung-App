@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:meine_zeiterfassungs_app/const/theme/theme.dart';
+import 'package:meine_zeiterfassungs_app/Konstanten/theme/theme.dart';
 import 'package:meine_zeiterfassungs_app/screens/Kalender/Data/calendar_data.dart';
 import 'package:table_calendar/table_calendar.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meine_zeiterfassungs_app/const/theme/theme.dart';
+import 'package:meine_zeiterfassungs_app/Konstanten/theme/theme.dart';
 import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/ProjectScreen/Data/project.dart';
 import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/TimeRecordingScreen/time_recording_screnn.dart';
 import 'package:meine_zeiterfassungs_app/screens/Zeiterfassung/WorkingSpaceScreen/Data/workplace.dart';
