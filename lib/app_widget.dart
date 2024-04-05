@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meine_zeiterfassungs_app/screens/Home%20+%20StartScreen/start_screen.dart';
+import 'package:meine_zeiterfassungs_app/screens/home_startScreen/start_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
