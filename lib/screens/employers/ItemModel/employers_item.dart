@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:meine_zeiterfassungs_app/screens/employers/Data/employers.dart';
+import 'package:meine_zeiterfassungs_app/screens/employers/data/employers.dart';
 
 class EmployersItemModel extends StatefulWidget {
-  const EmployersItemModel({super.key, required this.mitarbeiter});
+  const EmployersItemModel({super.key, required this.employers});
 
-  final Mitarbeiter mitarbeiter;
+  final Employers employers;
 
   @override
   State<EmployersItemModel> createState() => _EmployersItemModelState();
@@ -62,20 +62,20 @@ class _EmployersItemModelState extends State<EmployersItemModel> {
                         height: 15,
                         width: 150,
                         decoration: const BoxDecoration(color: Colors.transparent),
-                        child: Text(widget.mitarbeiter.firstName),
+                        child: Text(widget.employers.firstName),
                       ),
                       Container(
                         height: 15,
                         width: 150,
                         decoration: const BoxDecoration(color: Colors.transparent),
-                        child: Text(widget.mitarbeiter.lastName),
+                        child: Text(widget.employers.lastName),
                       ),
                       Container(
                         height: 15,
                         width: 150,
                         decoration: const BoxDecoration(color: Colors.transparent),
                         child: Text(
-                          widget.mitarbeiter.age,
+                          widget.employers.age,
                         ),
                       ),
                     ],

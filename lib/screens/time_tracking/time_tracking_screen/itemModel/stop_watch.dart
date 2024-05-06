@@ -1,5 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:meine_zeiterfassungs_app/provider/timerec_provider.dart';
+import 'package:meine_zeiterfassungs_app/screens/time_tracking/time_tracking_screen/data/working_time.dart';
+import 'package:provider/provider.dart';
 
 class StopWatch extends StatefulWidget {
   const StopWatch({
@@ -12,8 +15,7 @@ class StopWatch extends StatefulWidget {
 
 class _StopWatchState extends State<StopWatch> {
   Duration duration = const Duration();
-  Timer? timer;
-  String timeOfDay = '';
+  late Timer timer;
 
   void addTime() {
     const addSeconds = 1;
@@ -24,16 +26,20 @@ class _StopWatchState extends State<StopWatch> {
   }
 
   void stop() {
-    setState(() {
-      timer?.cancel();
-      timeOfDay = timer.toString();
-    });
+    timer.cancel();
+    WorkingTime workingTime = WorkingTime(
+        hours: duration.inHours.remainder(24),
+        minutes: duration.inMinutes.remainder(60),
+        seconds: duration.inSeconds.remainder(60));
+    context.read<TimerecordingProvider>().addWorkingTime(workingTime);
+    duration = const Duration(seconds: 0, minutes: 0, hours: 0);
   }
 
   void startTimer() {
-    timer = Timer.periodic(const Duration(seconds: 1), (_) => addTime());
+    timer = Timer.periodic(const Duration(seconds: 1), (context) => addTime());
   }
 
+  @override
   void dispose() {
     super.dispose();
   }

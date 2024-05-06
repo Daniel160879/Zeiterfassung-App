@@ -1,7 +1,7 @@
-class Mitarbeiter {
+class Employers {
   String firstName;
   String lastName;
   String age;
 
-  Mitarbeiter({required this.firstName, required this.lastName, required this.age});
+  Employers({required this.firstName, required this.lastName, required this.age});
 }

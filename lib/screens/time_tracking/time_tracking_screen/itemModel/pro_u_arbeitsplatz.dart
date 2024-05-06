@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/Data/project.dart';
-import 'package:meine_zeiterfassungs_app/screens/time_tracking/working_space_screen/Data/workplace.dart';
+import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/data/project.dart';
+import 'package:meine_zeiterfassungs_app/screens/time_tracking/working_space_screen/data/workplace.dart';
 
-import '../../../../constants/theme/theme.dart';
+import '../../../../decoration/theme/theme.dart';
 
 class TimeRecordingItem extends StatelessWidget {
   const TimeRecordingItem({super.key, required this.project, required this.workPlace});

@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import '../../constants/ButtonStyle/button_styles.dart';
-import '../../constants/Style/decoration.dart';
-import '../../constants/theme/theme.dart';
+import 'package:meine_zeiterfassungs_app/decoration/buttonStyle/button_styles.dart';
+import 'package:meine_zeiterfassungs_app/decoration/style/decoration.dart';
+import 'package:meine_zeiterfassungs_app/decoration/theme/theme.dart';
 
 class LogoutScreen extends StatelessWidget {
   const LogoutScreen({super.key});

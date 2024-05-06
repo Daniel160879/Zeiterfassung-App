@@ -1,8 +1,15 @@
 class WorkingTime {
-  final String workingDay;
-  final int seconds;
-  final int minutes;
-  final int hours;
+  int seconds;
+  int minutes;
+  int hours;
 
-  WorkingTime({required this.hours, required this.minutes, required this.seconds, required this.workingDay});
+  WorkingTime({
+    required this.hours,
+    required this.minutes,
+    required this.seconds,
+  });
+  @override
+  String toString() {
+    return '$hours : $minutes : $seconds';
+  }
 }

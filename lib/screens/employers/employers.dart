@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:meine_zeiterfassungs_app/screens/employers/Data/employers.dart';
+import 'package:meine_zeiterfassungs_app/provider/employers_provider.dart';
+import 'package:meine_zeiterfassungs_app/screens/employers/data/employers.dart';
 import 'package:meine_zeiterfassungs_app/screens/employers/ItemModel/employers_item.dart';
 import 'package:meine_zeiterfassungs_app/screens/employers/Repository/employers_repository.dart';
+import 'package:provider/provider.dart';
 
-import '../../constants/style/decoration.dart';
-import '../../constants/theme/theme.dart';
+import '../../decoration/style/decoration.dart';
+import '../../decoration/theme/theme.dart';
 
 class MitarbeiterScreen extends StatefulWidget {
   const MitarbeiterScreen({super.key, required this.employersRepository});
@@ -16,19 +18,13 @@ class MitarbeiterScreen extends StatefulWidget {
 }
 
 class _MitarbeiterScreenState extends State<MitarbeiterScreen> {
-  late Future<List<Mitarbeiter>> mitarbeiter;
+  late Future<List<Employers>> employers;
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
   String firstName = '';
   String lastName = '';
   String age = '';
-
-  @override
-  void initState() {
-    super.initState();
-    mitarbeiter = EmployersRepository().getEmployers();
-  }
 
   @override
   void dispose() {
@@ -83,24 +79,20 @@ class _MitarbeiterScreenState extends State<MitarbeiterScreen> {
             ),
             TextButton(
                 onPressed: () {
-                  submit();
+                  createEmployers();
                 },
                 child: const Text('new employer'))
           ],
         );
       });
-  void submit() {
-    setState(() {
-      firstName = _firstNameController.text;
-      lastName = _lastNameController.text;
-      age = _ageController.text;
-      widget.employersRepository.mitarbeiterMock.add(Mitarbeiter(firstName: firstName, lastName: lastName, age: age));
-
-      _firstNameController.clear();
-      _lastNameController.clear();
-      _ageController.clear();
-      Navigator.of(context).pop();
-    });
+  void createEmployers() {
+    Employers employers =
+        Employers(firstName: _firstNameController.text, lastName: _lastNameController.text, age: _ageController.text);
+    Provider.of<EmployersProvider>(context, listen: false).addEmployers(employers);
+    _firstNameController.clear();
+    _lastNameController.clear();
+    _ageController.clear();
+    Navigator.of(context).pop();
   }
 
   @override
@@ -114,53 +106,41 @@ class _MitarbeiterScreenState extends State<MitarbeiterScreen> {
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 80, 73, 72),
       ),
-      body: Container(
-        decoration: myBoxdeco,
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 50,
-            ),
-            ElevatedButton(
-                style: const ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 80, 73, 72)),
-                  alignment: Alignment.center,
-                  fixedSize: MaterialStatePropertyAll(Size(175, 70)),
-                ),
-                onPressed: () {
-                  openDialog();
-                },
-                child: const Text('Neuen Mitarbeiter\nerstellen')),
-            FutureBuilder<List<Mitarbeiter>>(
-                future: mitarbeiter,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  } else if (snapshot.hasError) {
-                    return Text('Keine daten vorhanden: ${snapshot.hasError}');
-                  } else if (snapshot.hasData) {
-                    return ListView.builder(
-                        padding: const EdgeInsets.all(16),
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: ((context, index) {
-                          return Dismissible(
-                              onDismissed: (direction) {
-                                setState(() {
-                                  widget.employersRepository.mitarbeiterMock.removeAt(index);
-                                });
-                              },
-                              key: ValueKey(index),
-                              child: EmployersItemModel(mitarbeiter: snapshot.data![index]));
-                        }));
-                  } else {
-                    return const Text('no data');
-                  }
-                })
-          ],
-        ),
-      ),
+      body: Consumer<EmployersProvider>(builder: (context, model, child) {
+        return Container(
+          decoration: myBoxdeco,
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 50,
+              ),
+              ElevatedButton(
+                  style: const ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 80, 73, 72)),
+                    alignment: Alignment.center,
+                    fixedSize: MaterialStatePropertyAll(Size(175, 70)),
+                  ),
+                  onPressed: () {
+                    openDialog();
+                  },
+                  child: const Text('Neuen Mitarbeiter\nerstellen')),
+              ListView.builder(
+                  padding: const EdgeInsets.all(16),
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: model.employersList.length,
+                  itemBuilder: ((context, index) {
+                    return Dismissible(
+                        onDismissed: (direction) {
+                          model.employersList.removeAt(index);
+                        },
+                        key: ValueKey(model.employersList[index]),
+                        child: EmployersItemModel(employers: model.employersList[index]));
+                  }))
+            ],
+          ),
+        );
+      }),
     );
   }
 }

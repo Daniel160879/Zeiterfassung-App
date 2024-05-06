@@ -1,8 +1,15 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_firs
 class WorkPlace {
   final String title;
 
-  WorkPlace({
-    required this.title,
-  });
+  WorkPlace(
+    this.title,
+  );
+
+  factory WorkPlace.fromJson(Map<String, dynamic> json) {
+    return WorkPlace(json['title']);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'title': title};
+  }
 }

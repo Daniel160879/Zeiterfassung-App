@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:meine_zeiterfassungs_app/decoration/style/decoration.dart';
+import 'package:meine_zeiterfassungs_app/provider/employers_provider.dart';
 import 'package:meine_zeiterfassungs_app/screens/calendar/calendar_screen.dart';
 import 'package:meine_zeiterfassungs_app/screens/logout/logout.screen.dart';
-import 'package:meine_zeiterfassungs_app/screens/employers/Repository/employers_repository.dart';
 import 'package:meine_zeiterfassungs_app/screens/employers/employers.dart';
-import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/Repository/project_repository.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/project_screen.dart';
-import '../../constants/Style/decoration.dart';
-import '../../constants/buttonStyle/button_styles.dart';
-import '../../constants/theme/theme.dart';
+import 'package:provider/provider.dart';
+
+import '../../decoration/buttonStyle/button_styles.dart';
+import '../../decoration/theme/theme.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    ProjectRepository projectRepository = ProjectRepository();
-    EmployersRepository employersRepository = EmployersRepository();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -31,12 +30,7 @@ class HomeScreen extends StatelessWidget {
               ElevatedButton(
                 style: myHomeButtonStyle,
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ChooseProjectScreen(
-                                projectRepository: projectRepository,
-                              )));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const ChooseProjectScreen()));
                 },
                 child: const Text('Zeiterfassung', style: myBttnTextStyle),
               ),
@@ -58,7 +52,7 @@ class HomeScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => MitarbeiterScreen(
-                                employersRepository: employersRepository,
+                                employersRepository: context.read<EmployersProvider>().employersRepository,
                               )));
                 },
                 child: const Text(

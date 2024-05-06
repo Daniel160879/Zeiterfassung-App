@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/image_logo.dart';
 import 'package:meine_zeiterfassungs_app/screens/home_startScreen/home_screen.dart';
-import '../../../constants/style/decoration.dart';
+import '../../../decoration/style/decoration.dart';
 import '../Const/textfield_deco.dart';
 
 class LoginScreen extends StatefulWidget {

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:meine_zeiterfassungs_app/constants/theme/theme.dart';
+import 'package:meine_zeiterfassungs_app/decoration/style/decoration.dart';
+import 'package:meine_zeiterfassungs_app/decoration/theme/theme.dart';
 import 'package:meine_zeiterfassungs_app/screens/reg_login/Reg%20und%20Log%20Screen/login_screen.dart';
 import 'package:meine_zeiterfassungs_app/screens/reg_login/Reg%20und%20Log%20Screen/registration_screen.dart';
-
-import '../../constants/Style/decoration.dart';
 
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});

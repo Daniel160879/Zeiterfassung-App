@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:meine_zeiterfassungs_app/decoration/style/decoration.dart';
 import 'package:meine_zeiterfassungs_app/screens/calendar/Data/calendar_data.dart';
+import 'package:meine_zeiterfassungs_app/screens/calendar/decoration/calendar_deco.dart';
 import 'package:table_calendar/table_calendar.dart';
-import '../../constants/theme/theme.dart';
+import '../../decoration/theme/theme.dart';
 
 class CalendarScreen extends StatefulWidget {
   const CalendarScreen({super.key});
@@ -56,26 +58,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
         ),
       ),
       body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/background/background.png'), fit: BoxFit.cover),
-        ),
+        decoration: myBoxdeco,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
               TableCalendar(
-                headerStyle: const HeaderStyle(
-                  titleCentered: true,
-                  formatButtonTextStyle: TextStyle(color: Colors.indigoAccent),
-                  formatButtonDecoration: BoxDecoration(color: Colors.deepOrange),
-                  titleTextStyle: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold, fontSize: 20),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(35),
-                    ),
-                    color: Color.fromARGB(255, 80, 73, 72),
-                  ),
-                ),
+                headerStyle: myCalendarHeaderStyle,
                 daysOfWeekStyle: const DaysOfWeekStyle(
                   weekendStyle: TextStyle(color: Color.fromARGB(155, 155, 155, 155)),
                   weekdayStyle: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
@@ -90,16 +79,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 startingDayOfWeek: StartingDayOfWeek.monday,
                 onDaySelected: onDaySelected,
                 eventLoader: _getUrlaubForDay,
-                calendarStyle: const CalendarStyle(
-                  todayTextStyle: TextStyle(color: Color.fromARGB(255, 235, 1, 1)),
-                  weekendTextStyle: myTextStyle,
-                  rowDecoration: BoxDecoration(color: Color.fromARGB(255, 80, 73, 72)),
-                  weekNumberTextStyle: myTextStyle,
-                  markerDecoration: BoxDecoration(color: Colors.amber),
-                  weekendDecoration: BoxDecoration(color: Color.fromARGB(255, 90, 93, 82)),
-                  defaultTextStyle: TextStyle(color: Color.fromARGB(255, 218, 218, 216)),
-                  outsideDaysVisible: false,
-                ),
+                calendarStyle: myCalendarStyle,
                 onFormatChanged: (format) {
                   if (_calendarFormat != format) {
                     setState(() {

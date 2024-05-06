@@ -1,13 +1,13 @@
-import 'package:meine_zeiterfassungs_app/screens/employers/Data/employers.dart';
+import 'package:meine_zeiterfassungs_app/screens/employers/data/employers.dart';
 
 class EmployersRepository {
-  List<Mitarbeiter> mitarbeiterMock = [];
+  List<Employers> mitarbeiterMock = [];
 
-  Future<List<Mitarbeiter>> getEmployers() async {
+  Future<List<Employers>> getEmployers() async {
     return await Future.value(mitarbeiterMock);
   }
 
-  void addMitarbeiter(Mitarbeiter mitarbeiter) {
-    mitarbeiterMock.add(mitarbeiter);
+  void addMitarbeiter(Employers employers) {
+    mitarbeiterMock.add(employers);
   }
 }

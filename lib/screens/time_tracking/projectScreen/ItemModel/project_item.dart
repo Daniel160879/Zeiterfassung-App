@@ -1,26 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/Data/project.dart';
-import 'package:meine_zeiterfassungs_app/screens/time_tracking/working_space_screen/Repository/workplace_repository.dart';
+import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/data/project.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/working_space_screen/workingspace_screen.dart';
-
-import '../../../../constants/theme/theme.dart';
+import '../../../../decoration/theme/theme.dart';
 
 class ProjectItem extends StatelessWidget {
-  const ProjectItem({
-    super.key,
-    required this.project,
-  });
+  const ProjectItem({super.key, required this.project});
 
   final Project project;
-
   @override
   Widget build(BuildContext context) {
-    WorkPlaceRepoitory workPlaceRepoitory = WorkPlaceRepoitory();
     return Padding(
-      padding: const EdgeInsets.all(12),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+        padding: const EdgeInsets.all(12),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Container(
             alignment: Alignment.center,
             height: 65,
@@ -36,7 +27,6 @@ class ProjectItem extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => ChooseWorkingSpace(
                               project: project,
-                              workPlaceRepoitory: workPlaceRepoitory,
                             )));
               },
               child: Text(
@@ -48,8 +38,6 @@ class ProjectItem extends StatelessWidget {
           const SizedBox(
             height: 30,
           )
-        ],
-      ),
-    );
+        ]));
   }
 }
