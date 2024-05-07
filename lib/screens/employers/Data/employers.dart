@@ -1,7 +1,15 @@
-class Employers {
+class Employer {
   String firstName;
   String lastName;
   String age;
 
-  Employers({required this.firstName, required this.lastName, required this.age});
+  Employer({required this.firstName, required this.lastName, required this.age});
+
+  factory Employer.fromJson(Map<String, dynamic> json) {
+    return Employer.fromJson(json);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'firstName': firstName, 'lastname': lastName, 'age': age};
+  }
 }

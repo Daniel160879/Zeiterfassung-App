@@ -4,24 +4,26 @@ import 'package:meine_zeiterfassungs_app/screens/employers/Repository/employers_
 
 class EmployersProvider extends ChangeNotifier {
   final EmployersRepository employersRepository;
-  List<Employers> employersList = [];
+  List<Employer> employersList = [];
 
   EmployersProvider(this.employersRepository) {
     _loadEmployers();
   }
 
-  void addEmployers(Employers employers) {
-    employersList.add(employers);
+  void addEmployers(Employer employer) {
+    employersList.add(employer);
+    employersRepository.saveEmployers(employersList);
     notifyListeners();
   }
 
-  void _loadEmployers() {
-    employersRepository.getEmployers();
+  Future<void> _loadEmployers() async {
+    employersList = await employersRepository.loadEmployers();
     notifyListeners();
   }
 
-  void removeEmployers(Employers employers) {
-    employersList.remove(employers);
+  void removeEmployers(Employer employer) {
+    employersList.remove(employer);
+    employersRepository.deleteEmployers(employersList);
     notifyListeners();
   }
 

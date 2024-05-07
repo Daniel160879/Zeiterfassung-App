@@ -56,12 +56,10 @@ class _ChooseWorkingSpaceState extends State<ChooseWorkingSpace> {
       });
 
   void createWorkplace() {
-    setState(() {
-      WorkPlace workPlace = WorkPlace(workspaceController.text);
-      Provider.of<WorkingPlaceProvider>(context, listen: false).addWorkPlace(workPlace);
-      workspaceController.clear();
-      Navigator.of(context).pop();
-    });
+    WorkPlace workPlace = WorkPlace(workspaceController.text);
+    Provider.of<WorkingPlaceProvider>(context, listen: false).addWorkPlace(workPlace);
+    workspaceController.clear();
+    Navigator.of(context).pop();
   }
 
   @override
@@ -139,17 +137,18 @@ class _ChooseWorkingSpaceState extends State<ChooseWorkingSpace> {
                     ListView.builder(
                       shrinkWrap: true,
                       padding: const EdgeInsets.all(16),
-                      itemCount: model.workPlaceList.length,
+                      itemCount: model.workPlacesList.length,
                       scrollDirection: Axis.vertical,
                       itemBuilder: (context, index) {
                         return Dismissible(
                             onDismissed: (direction) {
                               model.removeAt(index);
+                              model.workPlaceRepoitory.deleteWorkplace(model.workPlacesList);
                             },
-                            key: ValueKey(model.workPlaceList[index]),
+                            key: ValueKey(model.workPlacesList[index]),
                             child: WorkplaceItem(
                               project: widget.project,
-                              workplace: model.workPlaceList[index],
+                              workplace: model.workPlacesList[index],
                             ));
                       },
                     )

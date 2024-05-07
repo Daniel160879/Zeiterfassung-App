@@ -17,7 +17,7 @@ class TimeList extends StatelessWidget {
         decoration:
             BoxDecoration(borderRadius: BorderRadius.circular(30), color: const Color.fromARGB(255, 80, 73, 72)),
         child: ListView.builder(
-            itemCount: model.workingTimeList.length,
+            itemCount: model.workingTimesList.length,
             scrollDirection: Axis.vertical,
             itemBuilder: (context, index) {
               return ListTile(
@@ -30,7 +30,7 @@ class TimeList extends StatelessWidget {
                   '${workPlace!.title}    ',
                   style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
                 ),
-                trailing: Text('${model.workingTimeList[index]}'),
+                trailing: Text('${model.workingTimesList[index]}'),
                 horizontalTitleGap: BorderSide.strokeAlignCenter,
                 focusColor: Colors.amber,
                 leadingAndTrailingTextStyle: const TextStyle(color: Colors.blue),

@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:meine_zeiterfassungs_app/provider/project_provider.dart';
 import 'package:meine_zeiterfassungs_app/provider/timerec_provider.dart';
+import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/data/project.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/time_tracking_screen/data/working_time.dart';
+import 'package:meine_zeiterfassungs_app/screens/time_tracking/working_space_screen/data/workplace.dart';
 import 'package:provider/provider.dart';
 
 class StopWatch extends StatefulWidget {
@@ -16,6 +19,8 @@ class StopWatch extends StatefulWidget {
 class _StopWatchState extends State<StopWatch> {
   Duration duration = const Duration();
   late Timer timer;
+  late Project project;
+  late WorkPlace workPlace;
 
   void addTime() {
     const addSeconds = 1;

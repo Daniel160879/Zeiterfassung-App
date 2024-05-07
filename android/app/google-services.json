@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "476353664981",
-    "project_id": "meine-zeiterfassung-89e24",
-    "storage_bucket": "meine-zeiterfassung-89e24.appspot.com"
+    "project_number": "481260062030",
+    "project_id": "zeiterfassungs-app-cf8e8",
+    "storage_bucket": "zeiterfassungs-app-cf8e8.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:476353664981:android:6e56b715e0713b3749cf5c",
+        "mobilesdk_app_id": "1:481260062030:android:12f87a9285c3ba7f6d0a1f",
         "android_client_info": {
           "package_name": "com.example.meine_zeiterfassungs_app"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA2fPSj8VnmPcoGS_jztTBCcwZcaBolDAg"
+          "current_key": "AIzaSyCRBxwPnI5DMyQRZsfihEkqedQrFGZmnTs"
         }
       ],
       "services": {

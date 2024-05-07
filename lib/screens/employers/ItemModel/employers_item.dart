@@ -4,9 +4,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:meine_zeiterfassungs_app/screens/employers/data/employers.dart';
 
 class EmployersItemModel extends StatefulWidget {
-  const EmployersItemModel({super.key, required this.employers});
+  const EmployersItemModel({super.key, required this.employer});
 
-  final Employers employers;
+  final Employer employer;
 
   @override
   State<EmployersItemModel> createState() => _EmployersItemModelState();
@@ -14,6 +14,7 @@ class EmployersItemModel extends StatefulWidget {
 
 class _EmployersItemModelState extends State<EmployersItemModel> {
   File? _profileImage;
+
   Future<void> _changeProfileImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
@@ -62,20 +63,20 @@ class _EmployersItemModelState extends State<EmployersItemModel> {
                         height: 15,
                         width: 150,
                         decoration: const BoxDecoration(color: Colors.transparent),
-                        child: Text(widget.employers.firstName),
+                        child: Text(widget.employer.firstName),
                       ),
                       Container(
                         height: 15,
                         width: 150,
                         decoration: const BoxDecoration(color: Colors.transparent),
-                        child: Text(widget.employers.lastName),
+                        child: Text(widget.employer.lastName),
                       ),
                       Container(
                         height: 15,
                         width: 150,
                         decoration: const BoxDecoration(color: Colors.transparent),
                         child: Text(
-                          widget.employers.age,
+                          widget.employer.age,
                         ),
                       ),
                     ],

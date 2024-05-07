@@ -18,13 +18,9 @@ class MitarbeiterScreen extends StatefulWidget {
 }
 
 class _MitarbeiterScreenState extends State<MitarbeiterScreen> {
-  late Future<List<Employers>> employers;
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
-  String firstName = '';
-  String lastName = '';
-  String age = '';
 
   @override
   void dispose() {
@@ -86,8 +82,11 @@ class _MitarbeiterScreenState extends State<MitarbeiterScreen> {
         );
       });
   void createEmployers() {
-    Employers employers =
-        Employers(firstName: _firstNameController.text, lastName: _lastNameController.text, age: _ageController.text);
+    Employer employers = Employer(
+      firstName: _firstNameController.text,
+      lastName: _lastNameController.text,
+      age: _ageController.text,
+    );
     Provider.of<EmployersProvider>(context, listen: false).addEmployers(employers);
     _firstNameController.clear();
     _lastNameController.clear();
@@ -133,9 +132,10 @@ class _MitarbeiterScreenState extends State<MitarbeiterScreen> {
                     return Dismissible(
                         onDismissed: (direction) {
                           model.employersList.removeAt(index);
+                          model.employersRepository.deleteEmployers(model.employersList);
                         },
                         key: ValueKey(model.employersList[index]),
-                        child: EmployersItemModel(employers: model.employersList[index]));
+                        child: EmployersItemModel(employer: model.employersList[index]));
                   }))
             ],
           ),

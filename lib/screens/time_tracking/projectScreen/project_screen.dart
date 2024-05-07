@@ -3,7 +3,6 @@ import 'package:meine_zeiterfassungs_app/provider/project_provider.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/data/project.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/ItemModel/project_item.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/decoration/projectscreen_decoration.dart';
-import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/repository/project_repository.dart';
 import 'package:provider/provider.dart';
 import '../../../decoration/buttonStyle/button_styles.dart';
 import '../../../decoration/style/decoration.dart';
@@ -58,7 +57,6 @@ class _ChooseProjectScreenState extends State<ChooseProjectScreen> {
   void createProject() {
     Project project = Project(_projectController.text);
     Provider.of<ProjectProvider>(context, listen: false).addProject(project);
-
     _projectController.clear();
     Navigator.of(context).pop();
   }
@@ -97,14 +95,15 @@ class _ChooseProjectScreenState extends State<ChooseProjectScreen> {
                   padding: const EdgeInsets.all(16),
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
-                  itemCount: model.projectList.length,
+                  itemCount: model.projectLists.length,
                   itemBuilder: (context, index) {
                     return Dismissible(
                         onDismissed: (direction) {
                           model.removeAt(index);
+                          model.projectRepository.deleteProjects(model.projectLists);
                         },
-                        key: ValueKey(model.projectList[index]),
-                        child: ProjectItem(project: model.projectList[index]));
+                        key: ValueKey(model.projectLists[index]),
+                        child: ProjectItem(project: model.projectLists[index]));
                   },
                 )
               ],

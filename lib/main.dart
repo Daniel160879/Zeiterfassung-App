@@ -9,6 +9,8 @@ import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/rep
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/time_tracking_screen/repository/time_repository.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/working_space_screen/repository/workplace_repository.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +18,9 @@ void main() async {
   EmployersRepository employersRepository = EmployersRepository();
   WorkPlaceRepoitory workPlaceRepoitory = WorkPlaceRepoitory();
   ProjectRepository projectRepository = ProjectRepository();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     MultiProvider(
       providers: [

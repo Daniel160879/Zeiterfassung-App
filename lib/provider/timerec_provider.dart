@@ -4,29 +4,31 @@ import 'package:meine_zeiterfassungs_app/screens/time_tracking/time_tracking_scr
 
 class TimerecordingProvider extends ChangeNotifier {
   final TimeRepository timeRepository;
-  List<WorkingTime> workingTimeList = [];
+  List<WorkingTime> workingTimesList = [];
 
   TimerecordingProvider(this.timeRepository) {
-    _loadTime;
+    _loadTime();
   }
 
   void addWorkingTime(WorkingTime workingTime) {
-    workingTimeList.add(workingTime);
+    workingTimesList.add(workingTime);
+    timeRepository.saveWorkingTime(workingTimesList);
     notifyListeners();
   }
 
-  void _loadTime() {
-    timeRepository.getWorkingTime();
+  Future<void> _loadTime() async {
+    workingTimesList = await timeRepository.loadWorkingTime();
     notifyListeners();
   }
 
   void removeWorkingTime(WorkingTime workingTime) {
-    workingTimeList.remove(workingTime);
+    workingTimesList.remove(workingTime);
+    timeRepository.deleteWorkingTime(timeRepository.workingTimeList);
     notifyListeners();
   }
 
   void removeAt(int index) {
-    workingTimeList.removeAt(index);
+    workingTimesList.removeAt(index);
     notifyListeners();
   }
 }

@@ -4,29 +4,31 @@ import 'package:meine_zeiterfassungs_app/screens/time_tracking/working_space_scr
 
 class WorkingPlaceProvider with ChangeNotifier {
   final WorkPlaceRepoitory workPlaceRepoitory;
-  List<WorkPlace> workPlaceList = [];
+  List<WorkPlace> workPlacesList = [];
 
   WorkingPlaceProvider(this.workPlaceRepoitory) {
-    _loadWorkPlace;
+    _loadWorkPlace();
   }
 
   void addWorkPlace(WorkPlace workPlace) {
-    workPlaceList.add(workPlace);
+    workPlacesList.add(workPlace);
+    workPlaceRepoitory.saveWorkplaces(workPlacesList);
     notifyListeners();
   }
 
-  void _loadWorkPlace() {
-    workPlaceRepoitory.getWorkPlace();
+  Future<void> _loadWorkPlace() async {
+    workPlacesList = await workPlaceRepoitory.loadWorkplace();
     notifyListeners();
   }
 
   void removeWorkPlace(WorkPlace workPlace) {
-    workPlaceList.remove(workPlace);
+    workPlacesList.remove(workPlace);
+    workPlaceRepoitory.deleteWorkplace(workPlace);
     notifyListeners();
   }
 
   void removeAt(int index) {
-    workPlaceList.removeAt(index);
+    workPlacesList.removeAt(index);
     notifyListeners();
   }
 }

@@ -3,27 +3,6 @@ import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/dat
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProjectRepository {
-  final List<Project> projects = []; // liste weg weil in shared
-
-  List<Project> getProject() {
-    return projects; // weg
-  }
-
-  ProjectRepository() {
-    // auch weg
-    loadProjects().then(
-      (value) {
-        value = projects;
-        return projects;
-      },
-    );
-  }
-
-  void addProject(Project project) {
-    projects.add(project);
-  }
-
-// SP { title: 'Hochhaus' } jetzt aber { title: { 'title': "Hochhaus" } }
   Future<List<Project>> loadProjects() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String projectsString = prefs.getString('projects') ?? '';
@@ -38,7 +17,12 @@ class ProjectRepository {
     await prefs.setString('projects', jsonEncode(toJson(projects)));
   }
 
-  //fromJson
+  Future<void> deleteProjects(projects) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('projects');
+  }
+
+  // FROMJSON LIST
   List<Project> fromJson(String json) {
     final List<Project> projects = [];
     final Map<String, dynamic> projectsMap = jsonDecode(json);
@@ -50,9 +34,8 @@ class ProjectRepository {
     return projects;
   }
 
-  //toJson
+  // TOJSON LIST
   Map<String, dynamic> toJson(List<Project> projects) {
-    //{projects:[{'title': "Hochhaus" },{'title': "Bad" },{'title': "Baustelle" }]}
     List<Map<String, dynamic>> projectJsons = [];
     for (Project project in projects) {
       projectJsons.add(project.toJson());
