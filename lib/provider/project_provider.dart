@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/data/project.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/repository/project_repository.dart';
 
+enum ProjectProviderStatus { loading, loaded, error }
+
 class ProjectProvider extends ChangeNotifier {
   final ProjectRepository projectRepository;
   List<Project> projectLists = [];

@@ -55,7 +55,7 @@ class _ChooseProjectScreenState extends State<ChooseProjectScreen> {
       );
 
   void createProject() {
-    Project project = Project(_projectController.text);
+    Project project = Project(title: _projectController.text);
     Provider.of<ProjectProvider>(context, listen: false).addProject(project);
     _projectController.clear();
     Navigator.of(context).pop();
