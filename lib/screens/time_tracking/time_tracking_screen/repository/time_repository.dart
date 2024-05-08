@@ -29,7 +29,7 @@ class TimeRepository {
     prefs.setString('workingtimes', jsonEncode(toJson(workingTimes)));
   }
 
-  Future<void> deleteWorkingTime(WorkingTime) async {
+  Future<void> deleteWorkingTime(workingTimes) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove('workingtimes');
   }

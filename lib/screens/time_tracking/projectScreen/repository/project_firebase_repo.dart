@@ -6,32 +6,31 @@ class FirebaseProjectRepository implements ProjectRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
-  Future<void> deleteProjects(projects) {
-    // TODO: implement deleteProjects
-    throw UnimplementedError();
+  Stream<List<Project>> get project {
+    final projectCollectionRef = _firestore.collection('title');
+    final projectSnapshot = projectCollectionRef.snapshots();
+    final projectStream =
+        projectSnapshot.map((snapshot) => snapshot.docs.map((e) => Project.fromFirestore(e)).toList());
+    return projectStream;
   }
 
   @override
-  List<Project> fromJson(String json) {
-    // TODO: implement fromJson
-    throw UnimplementedError();
+  void deletProject(Project project) {
+    final projectCollectionRef = _firestore.collection('title');
+    projectCollectionRef.doc(project.title).delete();
   }
 
   @override
-  Future<List<Project>> loadProjects() {
-    // TODO: implement loadProjects
-    throw UnimplementedError();
+  // TODO: implement project
+
+  @override
+  void resetProject() {
+    // TODO: implement resetProject
   }
 
   @override
-  Future<void> saveProjects(List<Project> projects) {
-    // TODO: implement saveProjects
-    throw UnimplementedError();
-  }
-
-  @override
-  Map<String, dynamic> toJson(List<Project> projects) {
-    // TODO: implement toJson
+  Future<void> setProjectCompletion(Project project) {
+    // TODO: implement setProjectCompletion
     throw UnimplementedError();
   }
 }

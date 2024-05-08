@@ -100,7 +100,7 @@ class _ChooseProjectScreenState extends State<ChooseProjectScreen> {
                     return Dismissible(
                         onDismissed: (direction) {
                           model.removeAt(index);
-                          model.projectRepository.deleteProjects(model.projectLists);
+                          model.projectRepository.deletProject(model.projectLists[index]);
                         },
                         key: ValueKey(model.projectLists[index]),
                         child: ProjectItem(project: model.projectLists[index]));
