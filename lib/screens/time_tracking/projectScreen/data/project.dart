@@ -1,28 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Project {
+  String id;
   final String title;
 
-  Project({
-    required this.title,
-  });
+  Project({required this.title, required this.id});
 
   factory Project.fromFirestore(DocumentSnapshot doc) {
     if (!doc.exists) throw ArgumentError('mist schief gelaufen');
 
     final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-    return Project(title: data['title'] as String);
+    return Project(id: doc.id, title: data['projects'] as String);
   }
 
   Map<String, dynamic> toMap() {
-    return {'title': title};
-  }
-
-  factory Project.fromJson(Map<String, dynamic> json) {
-    return Project(title: json['title']);
-  }
-
-  Map<String, dynamic> toJson() {
-    return {'title': title};
+    return {'projects': title};
   }
 }

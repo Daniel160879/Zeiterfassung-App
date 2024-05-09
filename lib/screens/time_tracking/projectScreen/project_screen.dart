@@ -55,7 +55,7 @@ class _ChooseProjectScreenState extends State<ChooseProjectScreen> {
       );
 
   void createProject() {
-    Project project = Project(title: _projectController.text);
+    Project project = Project(id: '', title: _projectController.text);
     Provider.of<ProjectProvider>(context, listen: false).addProject(project);
     _projectController.clear();
     Navigator.of(context).pop();
@@ -63,13 +63,13 @@ class _ChooseProjectScreenState extends State<ChooseProjectScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final ProjectProvider projectProviderModel = context.watch<ProjectProvider>();
     return Scaffold(
-      appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: const Color.fromARGB(255, 80, 73, 72),
-          title: const Text('Project Screen')),
-      body: Consumer<ProjectProvider>(builder: (context, model, child) {
-        return Container(
+        appBar: AppBar(
+            centerTitle: true,
+            backgroundColor: const Color.fromARGB(255, 80, 73, 72),
+            title: const Text('Project Screen')),
+        body: Container(
           decoration: myBoxdeco,
           child: Center(
             child: Column(
@@ -91,26 +91,32 @@ class _ChooseProjectScreenState extends State<ChooseProjectScreen> {
                 const SizedBox(
                   height: 50,
                 ),
-                ListView.builder(
-                  padding: const EdgeInsets.all(16),
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: model.projectLists.length,
-                  itemBuilder: (context, index) {
-                    return Dismissible(
-                        onDismissed: (direction) {
-                          model.removeAt(index);
-                          model.projectRepository.deletProject(model.projectLists[index]);
-                        },
-                        key: ValueKey(model.projectLists[index]),
-                        child: ProjectItem(project: model.projectLists[index]));
-                  },
-                )
+                switch (projectProviderModel.projectStatus) {
+                  ProjectStatus.error => const Center(
+                      child: Text('no data'),
+                    ),
+                  ProjectStatus.loaded => ListView.builder(
+                      padding: const EdgeInsets.all(16),
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: projectProviderModel.projectLists.length,
+                      itemBuilder: (context, index) {
+                        return Dismissible(
+                            onDismissed: (direction) {
+                              projectProviderModel.projectRepository
+                                  .deletProject(projectProviderModel.projectLists.removeAt(index));
+                            },
+                            key: ValueKey(projectProviderModel.projectLists[index]),
+                            child: ProjectItem(project: projectProviderModel.projectLists[index]));
+                      },
+                    ),
+                  ProjectStatus.loading => const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                }
               ],
             ),
           ),
-        );
-      }),
-    );
+        ));
   }
 }

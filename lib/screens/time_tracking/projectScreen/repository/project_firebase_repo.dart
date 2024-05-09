@@ -7,7 +7,7 @@ class FirebaseProjectRepository implements ProjectRepository {
 
   @override
   Stream<List<Project>> get project {
-    final projectCollectionRef = _firestore.collection('title');
+    final projectCollectionRef = _firestore.collection('projects');
     final projectSnapshot = projectCollectionRef.snapshots();
     final projectStream =
         projectSnapshot.map((snapshot) => snapshot.docs.map((e) => Project.fromFirestore(e)).toList());
@@ -16,21 +16,25 @@ class FirebaseProjectRepository implements ProjectRepository {
 
   @override
   void deletProject(Project project) {
-    final projectCollectionRef = _firestore.collection('title');
-    projectCollectionRef.doc(project.title).delete();
+    final projectCollectionRef = _firestore.collection('projects');
+    projectCollectionRef.doc().delete();
   }
-
-  @override
-  // TODO: implement project
 
   @override
   void resetProject() {
-    // TODO: implement resetProject
+    final projectCollectionRef = _firestore.collection('projects');
+    projectCollectionRef.get().then((snapshot) {
+      for (final doc in snapshot.docs) {
+        doc.reference.delete();
+      }
+    });
   }
 
   @override
-  Future<void> setProjectCompletion(Project project) {
-    // TODO: implement setProjectCompletion
-    throw UnimplementedError();
+  Future<void> setProjectCompletion(Project project) async {
+    final projectCollectionRef = _firestore.collection('projects');
+    final docRef = projectCollectionRef.doc();
+    await docRef.set(project.toMap());
+    project.id = docRef.id;
   }
 }
