@@ -33,7 +33,7 @@ class TimeList extends StatelessWidget {
                 trailing: Text('${model.workingTimesList[index]}'),
                 horizontalTitleGap: BorderSide.strokeAlignCenter,
                 focusColor: Colors.amber,
-                leadingAndTrailingTextStyle: const TextStyle(color: Colors.blue),
+                leadingAndTrailingTextStyle: const TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
               );
             }),
       );

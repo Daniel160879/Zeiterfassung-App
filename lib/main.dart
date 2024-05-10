@@ -21,12 +21,12 @@ void main() async {
   TimeRepository timeRepository = TimeRepository();
   EmployersRepository employersRepository = EmployersRepository();
   WorkPlaceRepoitory workPlaceRepoitory = WorkPlaceRepoitory();
-
+  ProjectRepository projectRepository = FirebaseProjectRepository();
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => TimerecordingProvider(timeRepository)),
-        ChangeNotifierProvider(create: (context) => ProjectProvider()),
+        ChangeNotifierProvider(create: (context) => ProjectProvider(projectRepository)),
         ChangeNotifierProvider(create: (context) => WorkingPlaceProvider(workPlaceRepoitory)),
         ChangeNotifierProvider(create: (context) => EmployersProvider(employersRepository)),
       ],

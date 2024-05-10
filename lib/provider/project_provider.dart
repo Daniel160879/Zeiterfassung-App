@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/data/project.dart';
-import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/repository/project_firebase_repo.dart';
+
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/repository/project_repository.dart';
 
 enum ProjectStatus { loading, loaded, error }
 
 class ProjectProvider extends ChangeNotifier {
-  final ProjectRepository projectRepository = FirebaseProjectRepository();
+  final ProjectRepository projectRepository;
   ProjectStatus projectStatus = ProjectStatus.loading;
   List<Project> projectLists = [];
 
-  ProjectProvider() {
+  ProjectProvider(this.projectRepository) {
     _loadProject();
   }
 
@@ -21,12 +21,11 @@ class ProjectProvider extends ChangeNotifier {
 
   Future<void> _loadProject() async {
     try {
-      projectRepository.project.listen((project) {
-        project.clear();
-        project.addAll(project);
+      projectRepository.project.listen((projects) {
+        projectLists = projects;
         projectStatus = ProjectStatus.loaded;
+        notifyListeners();
       });
-      notifyListeners();
     } catch (e) {
       projectStatus = ProjectStatus.error;
       notifyListeners();
