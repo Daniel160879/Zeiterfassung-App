@@ -15,9 +15,14 @@ class FirebaseProjectRepository implements ProjectRepository {
   }
 
   @override
-  void deletProject(Project project) {
-    final projectCollectionRef = _firestore.collection('projects');
-    projectCollectionRef.doc().delete();
+  Future<void> deletProject(Project project) async {
+    await FirebaseFirestore.instance
+        .collection('projects')
+        .where('title', isEqualTo: project.title)
+        .get()
+        .then((snapshot) => snapshot.docs.forEach((doc) {
+              doc.reference.delete();
+            }));
   }
 
   @override

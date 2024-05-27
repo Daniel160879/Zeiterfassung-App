@@ -4,10 +4,13 @@ import 'package:meine_zeiterfassungs_app/provider/employers_provider.dart';
 import 'package:meine_zeiterfassungs_app/provider/project_provider.dart';
 import 'package:meine_zeiterfassungs_app/provider/timerec_provider.dart';
 import 'package:meine_zeiterfassungs_app/provider/workingspace_provider.dart';
+import 'package:meine_zeiterfassungs_app/screens/employers/Repository/employer_firebase_repo.dart';
 import 'package:meine_zeiterfassungs_app/screens/employers/Repository/employers_repository.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/repository/project_firebase_repo.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/repository/project_repository.dart';
+import 'package:meine_zeiterfassungs_app/screens/time_tracking/time_tracking_screen/repository/time_firebase_repository.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/time_tracking_screen/repository/time_repository.dart';
+import 'package:meine_zeiterfassungs_app/screens/time_tracking/working_space_screen/repository/workplace_firebase_repository.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/working_space_screen/repository/workplace_repository.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -18,9 +21,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  TimeRepository timeRepository = TimeRepository();
-  EmployersRepository employersRepository = EmployersRepository();
-  WorkPlaceRepoitory workPlaceRepoitory = WorkPlaceRepoitory();
+  TimeRepoitory timeRepository = FirebaseTimeRepository();
+  EmployersRepository employersRepository = FirebaseEmployerRepository();
+  WorkPlaceRepoitory workPlaceRepoitory = FirebaseWorkPlaceRepository();
   ProjectRepository projectRepository = FirebaseProjectRepository();
   runApp(
     MultiProvider(

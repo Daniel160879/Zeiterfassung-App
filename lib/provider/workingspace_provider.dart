@@ -2,33 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/working_space_screen/data/workplace.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/working_space_screen/repository/workplace_repository.dart';
 
-class WorkingPlaceProvider with ChangeNotifier {
+enum WorkplaceStatus { loaded, loading, error }
+
+class WorkingPlaceProvider extends ChangeNotifier {
   final WorkPlaceRepoitory workPlaceRepoitory;
+  WorkplaceStatus workplaceStatus = WorkplaceStatus.loaded;
   List<WorkPlace> workPlacesList = [];
 
   WorkingPlaceProvider(this.workPlaceRepoitory) {
     _loadWorkPlace();
   }
 
-  void addWorkPlace(WorkPlace workPlace) {
-    workPlacesList.add(workPlace);
-    workPlaceRepoitory.saveWorkplaces(workPlacesList);
+  Future<void> addWorkPlace(WorkPlace workPlace) async {
+    await workPlaceRepoitory.setWorkPlaceCompletion(workPlace);
     notifyListeners();
   }
 
   Future<void> _loadWorkPlace() async {
-    workPlacesList = await workPlaceRepoitory.loadWorkplace();
-    notifyListeners();
-  }
-
-  void removeWorkPlace(WorkPlace workPlace) {
-    workPlacesList.remove(workPlace);
-    workPlaceRepoitory.deleteWorkplace(workPlace);
-    notifyListeners();
-  }
-
-  void removeAt(int index) {
-    workPlacesList.removeAt(index);
-    notifyListeners();
+    try {
+      workPlaceRepoitory.workPlace.listen((workPlaces) {
+        workPlacesList = workPlaces;
+        workplaceStatus = WorkplaceStatus.loaded;
+        notifyListeners();
+      });
+    } catch (e) {
+      workplaceStatus = WorkplaceStatus.error;
+      notifyListeners();
+    }
   }
 }

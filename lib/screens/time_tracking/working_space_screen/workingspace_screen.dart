@@ -56,7 +56,7 @@ class _ChooseWorkingSpaceState extends State<ChooseWorkingSpace> {
       });
 
   void createWorkplace() {
-    WorkPlace workPlace = WorkPlace(workspaceController.text);
+    WorkPlace workPlace = WorkPlace(id: '', title: workspaceController.text);
     Provider.of<WorkingPlaceProvider>(context, listen: false).addWorkPlace(workPlace);
     workspaceController.clear();
     Navigator.of(context).pop();
@@ -64,6 +64,7 @@ class _ChooseWorkingSpaceState extends State<ChooseWorkingSpace> {
 
   @override
   Widget build(BuildContext context) {
+    final WorkingPlaceProvider workplaceModel = context.watch<WorkingPlaceProvider>();
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -76,87 +77,93 @@ class _ChooseWorkingSpaceState extends State<ChooseWorkingSpace> {
           ),
         ),
         body: Center(
-          child: Consumer<WorkingPlaceProvider>(builder: (context, model, chid) {
-            return Container(
-              decoration: myBoxdeco,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Container(
-                      height: 125,
-                      width: 300,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(15),
-                        ),
-                        color: Color.fromARGB(255, 80, 73, 72),
+          child: Container(
+            decoration: myBoxdeco,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Container(
+                    height: 125,
+                    width: 300,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(15),
                       ),
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const SizedBox(
-                              height: 12,
-                            ),
-                            const Text(
-                              'Project',
-                              style: myHeadBttnTextStyle,
-                            ),
-                            const Divider(
-                              color: Colors.black,
-                              thickness: 2,
-                            ),
-                            Text(
-                              widget.project.title,
-                              style: myTextStyle,
-                            ),
-                          ],
-                        ),
+                      color: Color.fromARGB(255, 80, 73, 72),
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          const Text(
+                            'Project',
+                            style: myHeadBttnTextStyle,
+                          ),
+                          const Divider(
+                            color: Colors.black,
+                            thickness: 2,
+                          ),
+                          Text(
+                            widget.project.title,
+                            style: myTextStyle,
+                          ),
+                        ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 22,
-                    ),
-                    ElevatedButton(
-                        style: myCreateButtonStyle,
-                        onPressed: () async {
-                          openDialog();
-                        },
-                        child: const Text(
-                          'create workingspace',
-                          style: myBttnTextStyle,
-                          textAlign: TextAlign.center,
-                        )),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      padding: const EdgeInsets.all(16),
-                      itemCount: model.workPlacesList.length,
-                      scrollDirection: Axis.vertical,
-                      itemBuilder: (context, index) {
-                        return Dismissible(
-                            onDismissed: (direction) {
-                              model.removeAt(index);
-                              model.workPlaceRepoitory.deleteWorkplace(model.workPlacesList);
-                            },
-                            key: ValueKey(model.workPlacesList[index]),
-                            child: WorkplaceItem(
-                              project: widget.project,
-                              workplace: model.workPlacesList[index],
-                            ));
+                  ),
+                  const SizedBox(
+                    height: 22,
+                  ),
+                  ElevatedButton(
+                      style: myCreateButtonStyle,
+                      onPressed: () {
+                        openDialog();
                       },
-                    )
-                  ],
-                ),
+                      child: const Text(
+                        'create workingspace',
+                        style: myBttnTextStyle,
+                        textAlign: TextAlign.center,
+                      )),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  switch (workplaceModel.workplaceStatus) {
+                    WorkplaceStatus.error => const Center(
+                        child: Text('no data'),
+                      ),
+                    WorkplaceStatus.loaded => ListView.builder(
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.all(16),
+                        itemCount: workplaceModel.workPlacesList.length,
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (context, index) {
+                          return Dismissible(
+                              onDismissed: (direction) {
+                                workplaceModel.workPlacesList.removeAt(index);
+                                workplaceModel.workPlaceRepoitory.deleteWorkPlace(workplaceModel.workPlacesList[index]);
+                              },
+                              key: ValueKey(workplaceModel.workPlacesList[index]),
+                              child: WorkplaceItem(
+                                project: widget.project,
+                                workplace: workplaceModel.workPlacesList[index],
+                              ));
+                        },
+                      ),
+                    WorkplaceStatus.loading => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                  }
+                ],
               ),
-            );
-          }),
+            ),
+          ),
         ));
   }
 }

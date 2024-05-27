@@ -86,7 +86,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 25,
                 ),
                 ElevatedButton(
-                  style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 80, 73, 72))),
+                  style: const ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(
+                      Color.fromARGB(255, 80, 73, 72),
+                    ),
+                  ),
                   onPressed: () {
                     Navigator.push(
                       context,

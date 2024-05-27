@@ -3,7 +3,7 @@ import 'package:meine_zeiterfassungs_app/decoration/style/decoration.dart';
 import 'package:meine_zeiterfassungs_app/provider/employers_provider.dart';
 import 'package:meine_zeiterfassungs_app/screens/calendar/calendar_screen.dart';
 import 'package:meine_zeiterfassungs_app/screens/logout/logout.screen.dart';
-import 'package:meine_zeiterfassungs_app/screens/employers/employers.dart';
+import 'package:meine_zeiterfassungs_app/screens/employers/employers_screen.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/project_screen.dart';
 import 'package:provider/provider.dart';
 

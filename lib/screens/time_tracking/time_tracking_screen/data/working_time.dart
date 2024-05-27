@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class WorkingTime {
   int seconds;
   int minutes;
@@ -13,11 +15,22 @@ class WorkingTime {
     return '$hours : $minutes : $seconds';
   }
 
-  factory WorkingTime.fromJson(Map<String, dynamic> json) {
-    return WorkingTime(hours: json['hours'], minutes: json['minutes'], seconds: json['seconds']);
+  factory WorkingTime.fromFirestore(DocumentSnapshot doc) {
+    if (!doc.exists) throw ArgumentError('mist schief gelaufen');
+
+    final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+    return WorkingTime(
+      hours: data['hours'] as int,
+      minutes: data['minutes'] as int,
+      seconds: data['seconds'] as int,
+    );
   }
 
-  Map<String, dynamic> toJson() {
-    return {'hours': minutes, 'minutes': minutes, 'seconds': seconds};
+  Map<String, dynamic> toMap() {
+    return {
+      'hours': hours,
+      'minutes': minutes,
+      'seconds': seconds,
+    };
   }
 }

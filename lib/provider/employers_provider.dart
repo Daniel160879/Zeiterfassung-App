@@ -2,33 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/screens/employers/data/employers.dart';
 import 'package:meine_zeiterfassungs_app/screens/employers/Repository/employers_repository.dart';
 
+enum EmployerStatus { loading, loaded, error }
+
 class EmployersProvider extends ChangeNotifier {
   final EmployersRepository employersRepository;
+  EmployerStatus employerStatus = EmployerStatus.loading;
   List<Employer> employersList = [];
 
   EmployersProvider(this.employersRepository) {
     _loadEmployers();
   }
 
-  void addEmployers(Employer employer) {
-    employersList.add(employer);
-    employersRepository.saveEmployers(employersList);
+  Future<void> addEmployers(Employer employer) async {
+    await employersRepository.setEmployerCompletion(employer);
     notifyListeners();
   }
 
   Future<void> _loadEmployers() async {
-    employersList = await employersRepository.loadEmployers();
-    notifyListeners();
-  }
-
-  void removeEmployers(Employer employer) {
-    employersList.remove(employer);
-    employersRepository.deleteEmployers(employersList);
-    notifyListeners();
-  }
-
-  void removeAt(int index) {
-    employersList.removeAt(index);
-    notifyListeners();
+    try {
+      employersRepository.employers.listen((employers) {
+        employersList = employers;
+        employerStatus = EmployerStatus.loaded;
+        notifyListeners();
+      });
+    } catch (e) {
+      employerStatus = EmployerStatus.error;
+      notifyListeners();
+    }
   }
 }

@@ -71,14 +71,6 @@ class _EmployersItemModelState extends State<EmployersItemModel> {
                         decoration: const BoxDecoration(color: Colors.transparent),
                         child: Text(widget.employer.lastName),
                       ),
-                      Container(
-                        height: 15,
-                        width: 150,
-                        decoration: const BoxDecoration(color: Colors.transparent),
-                        child: Text(
-                          widget.employer.age,
-                        ),
-                      ),
                     ],
                   ),
                 ),

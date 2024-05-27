@@ -60,6 +60,7 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
         }
+        ndkVersion "25.1.8937393"
     }
 }
 
@@ -67,4 +68,6 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+      implementation 'androidx.multidex:multidex:2.0.1'
+}

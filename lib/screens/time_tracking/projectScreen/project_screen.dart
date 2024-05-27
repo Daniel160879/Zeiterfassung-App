@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/provider/project_provider.dart';
-import 'package:meine_zeiterfassungs_app/provider/timerec_provider.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/data/project.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/ItemModel/project_item.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/decoration/projectscreen_decoration.dart';
@@ -65,59 +64,68 @@ class _ChooseProjectScreenState extends State<ChooseProjectScreen> {
   @override
   Widget build(BuildContext context) {
     final ProjectProvider projectProviderModel = context.watch<ProjectProvider>();
+
     return Scaffold(
-        appBar: AppBar(
-            centerTitle: true,
-            backgroundColor: const Color.fromARGB(255, 80, 73, 72),
-            title: const Text('Project Screen')),
-        body: Container(
-          decoration: myBoxdeco,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 70,
-                ),
-                ElevatedButton(
-                    style: myCreateButtonStyle,
-                    onPressed: () {
-                      openDialog();
+      appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: const Color.fromARGB(255, 80, 73, 72),
+          title: const Text(
+            'Project Screen',
+            style: TextStyle(color: Colors.white),
+          )),
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        decoration: myBoxdeco,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 70,
+              ),
+              ElevatedButton(
+                  style: myCreateButtonStyle,
+                  onPressed: () {
+                    openDialog();
+                  },
+                  child: const Text(
+                    'create new project',
+                    style: myBttnTextStyle,
+                    textAlign: TextAlign.center,
+                  )),
+              const SizedBox(
+                height: 50,
+              ),
+              switch (projectProviderModel.projectStatus) {
+                ProjectStatus.error => const Center(
+                    child: Text('no data'),
+                  ),
+                ProjectStatus.loaded => ListView.builder(
+                    padding: const EdgeInsets.all(16),
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: projectProviderModel.projectLists.length,
+                    itemBuilder: (context, index) {
+                      return Dismissible(
+                        onDismissed: (direction) {
+                          projectProviderModel.projectRepository.deletProject(
+                            projectProviderModel.projectLists.removeAt(index),
+                          );
+                        },
+                        key: ValueKey(projectProviderModel.projectLists[index]),
+                        child: ProjectItem(project: projectProviderModel.projectLists[index]),
+                      );
                     },
-                    child: const Text(
-                      'create new project',
-                      style: myBttnTextStyle,
-                      textAlign: TextAlign.center,
-                    )),
-                const SizedBox(
-                  height: 50,
-                ),
-                switch (projectProviderModel.projectStatus) {
-                  ProjectStatus.error => const Center(
-                      child: Text('no data'),
-                    ),
-                  ProjectStatus.loaded => ListView.builder(
-                      padding: const EdgeInsets.all(16),
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: projectProviderModel.projectLists.length,
-                      itemBuilder: (context, index) {
-                        return Dismissible(
-                            onDismissed: (direction) {
-                              projectProviderModel.projectRepository
-                                  .deletProject(projectProviderModel.projectLists.removeAt(index));
-                            },
-                            key: ValueKey(projectProviderModel.projectLists[index]),
-                            child: ProjectItem(project: projectProviderModel.projectLists[index]));
-                      },
-                    ),
-                  ProjectStatus.loading => const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                }
-              ],
-            ),
+                  ),
+                ProjectStatus.loading => const Center(
+                    child: CircularProgressIndicator(),
+                  )
+              }
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

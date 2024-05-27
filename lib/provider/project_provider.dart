@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/data/project.dart';
-
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/repository/project_repository.dart';
 
 enum ProjectStatus { loading, loaded, error }
