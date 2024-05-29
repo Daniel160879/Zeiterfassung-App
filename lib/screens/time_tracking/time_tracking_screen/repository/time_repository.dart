@@ -4,5 +4,4 @@ abstract class TimeRepoitory {
   Stream<List<WorkingTime>> get workTimes;
   Future<void> setWorkTimeComplition(WorkingTime workingTime);
   void deleteWorkPlace(WorkingTime workingTime);
-  void resetWorkPlace();
 }

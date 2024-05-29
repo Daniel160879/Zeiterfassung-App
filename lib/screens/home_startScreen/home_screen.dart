@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/decoration/style/decoration.dart';
-import 'package:meine_zeiterfassungs_app/provider/employers_provider.dart';
+import 'package:meine_zeiterfassungs_app/provider/user_provider.dart';
 import 'package:meine_zeiterfassungs_app/screens/calendar/calendar_screen.dart';
 import 'package:meine_zeiterfassungs_app/screens/logout/logout.screen.dart';
-import 'package:meine_zeiterfassungs_app/screens/employers/employers_screen.dart';
+import 'package:meine_zeiterfassungs_app/screens/Users/user_screen.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/project_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +15,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //  final UserProvider userProvider = context.watch<UserProvider>();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -45,6 +46,9 @@ class HomeScreen extends StatelessWidget {
                 },
                 child: const Text('Kalender', style: myBttnTextStyle),
               ),
+              //  userProvider.usersList.any(
+              //  (element) => element.isAdmin,
+              //) ?
               ElevatedButton(
                 style: myHomeButtonStyle,
                 onPressed: () {
@@ -52,15 +56,16 @@ class HomeScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => MitarbeiterScreen(
-                                employersRepository: context.read<EmployersProvider>().employersRepository,
+                                userRepository: context.read<UserProvider>().userRepository,
                               )));
                 },
                 child: const Text(
-                  'Mitarbeiter Liste',
+                  'Mitarbeiter',
                   style: myBttnTextStyle,
                   textAlign: TextAlign.center,
                 ),
               ),
+              //:
               ElevatedButton(
                 style: myHomeButtonStyle,
                 onPressed: () {

@@ -15,18 +15,20 @@ class FirebaseTimeRepository implements TimeRepoitory {
   }
 
   @override
-  void deleteWorkPlace(WorkingTime workingTime) {
-    // TODO: implement deleteWorkPlace
+  Future<void> deleteWorkPlace(WorkingTime workingTime) async {
+    await FirebaseFirestore.instance.collection('worktimes').where('worktimes', isEqualTo: workingTime).get().then(
+          (snapshot) => snapshot.docs.forEach(
+            (doc) {
+              doc.reference.delete();
+            },
+          ),
+        );
   }
 
   @override
-  void resetWorkPlace() {
-    // TODO: implement resetWorkPlace
-  }
-
-  @override
-  Future<void> setWorkTimeComplition(WorkingTime workingTime) {
-    // TODO: implement setWorkTimeComplition
-    throw UnimplementedError();
+  Future<void> setWorkTimeComplition(WorkingTime workingTime) async {
+    final workTimesCollectionRef = _firestore.collection('worktimes');
+    final docRef = workTimesCollectionRef.doc();
+    await docRef.set(workingTime.toMap());
   }
 }

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:meine_zeiterfassungs_app/provider/employers_provider.dart';
-import 'package:meine_zeiterfassungs_app/screens/employers/data/employers.dart';
-import 'package:meine_zeiterfassungs_app/screens/employers/ItemModel/employers_item.dart';
-import 'package:meine_zeiterfassungs_app/screens/employers/Repository/employers_repository.dart';
+import 'package:meine_zeiterfassungs_app/provider/user_provider.dart';
+import 'package:meine_zeiterfassungs_app/screens/Users/data/user.dart';
+import 'package:meine_zeiterfassungs_app/screens/Users/ItemModel/user_item.dart';
+import 'package:meine_zeiterfassungs_app/screens/Users/Repository/user_repository.dart';
 import 'package:provider/provider.dart';
 import '../../decoration/style/decoration.dart';
 import '../../decoration/theme/theme.dart';
 
 class MitarbeiterScreen extends StatefulWidget {
-  const MitarbeiterScreen({super.key, required this.employersRepository});
+  const MitarbeiterScreen({super.key, required this.userRepository});
 
-  final EmployersRepository employersRepository;
+  final UserRepository userRepository;
 
   @override
   State<MitarbeiterScreen> createState() => _MitarbeiterScreenState();
@@ -70,11 +70,8 @@ class _MitarbeiterScreenState extends State<MitarbeiterScreen> {
         );
       });
   void createEmployers() {
-    Employer employers = Employer(
-      firstName: _firstNameController.text,
-      lastName: _lastNameController.text,
-    );
-    Provider.of<EmployersProvider>(context, listen: false).addEmployers(employers);
+    User user = User(firstName: _firstNameController.text, lastName: _lastNameController.text, isAdmin: false);
+    Provider.of<UserProvider>(context, listen: false).addEmployers(user);
     _firstNameController.clear();
     _lastNameController.clear();
     Navigator.of(context).pop();
@@ -82,7 +79,7 @@ class _MitarbeiterScreenState extends State<MitarbeiterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final EmployersProvider employersProvider = context.watch<EmployersProvider>();
+    final UserProvider userProvider = context.watch<UserProvider>();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -109,26 +106,26 @@ class _MitarbeiterScreenState extends State<MitarbeiterScreen> {
                   openDialog();
                 },
                 child: const Text('Neuen Mitarbeiter\nerstellen')),
-            switch (employersProvider.employerStatus) {
-              EmployerStatus.error => const Center(
+            switch (userProvider.userStatus) {
+              UserStatus.error => const Center(
                   child: Text('no data'),
                 ),
-              EmployerStatus.loaded => Center(
+              UserStatus.loaded => Center(
                   child: ListView.builder(
                       padding: const EdgeInsets.all(16),
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
-                      itemCount: employersProvider.employersList.length,
+                      itemCount: userProvider.usersList.length,
                       itemBuilder: ((context, index) {
                         return Dismissible(
                             onDismissed: (direction) {
-                              employersProvider.employersList.removeAt(index);
+                              userProvider.usersList.removeAt(index);
                             },
-                            key: ValueKey(employersProvider.employersList[index]),
-                            child: EmployersItemModel(employer: employersProvider.employersList[index]));
+                            key: ValueKey(userProvider.usersList[index]),
+                            child: EmployersItemModel(user: userProvider.usersList[index]));
                       })),
                 ),
-              EmployerStatus.loading => const Center(child: CircularProgressIndicator())
+              UserStatus.loading => const Center(child: CircularProgressIndicator())
             }
           ],
         ),

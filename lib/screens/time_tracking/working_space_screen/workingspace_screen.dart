@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meine_zeiterfassungs_app/provider/user_provider.dart';
 import 'package:meine_zeiterfassungs_app/provider/workingspace_provider.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/data/project.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/working_space_screen/data/workplace.dart';
@@ -36,7 +37,7 @@ class _ChooseWorkingSpaceState extends State<ChooseWorkingSpace> {
         return AlertDialog(
           backgroundColor: const Color.fromARGB(255, 13, 13, 13),
           title: const Text(
-            'create new projects',
+            'neuen Arbeitsplatz erstellen',
             style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
@@ -50,7 +51,7 @@ class _ChooseWorkingSpaceState extends State<ChooseWorkingSpace> {
                 onPressed: () {
                   createWorkplace();
                 },
-                child: const Text('create workspace'))
+                child: const Text('Arbeitsplatz speichern'))
           ],
         );
       });
@@ -65,6 +66,7 @@ class _ChooseWorkingSpaceState extends State<ChooseWorkingSpace> {
   @override
   Widget build(BuildContext context) {
     final WorkingPlaceProvider workplaceModel = context.watch<WorkingPlaceProvider>();
+    final UserProvider userProvider = context.watch<UserProvider>();
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -103,7 +105,7 @@ class _ChooseWorkingSpaceState extends State<ChooseWorkingSpace> {
                             height: 12,
                           ),
                           const Text(
-                            'Project',
+                            'Projekt',
                             style: myHeadBttnTextStyle,
                           ),
                           const Divider(
@@ -112,7 +114,7 @@ class _ChooseWorkingSpaceState extends State<ChooseWorkingSpace> {
                           ),
                           Text(
                             widget.project.title,
-                            style: myTextStyle,
+                            style: myHeadBttnTextStyle,
                           ),
                         ],
                       ),
@@ -121,16 +123,25 @@ class _ChooseWorkingSpaceState extends State<ChooseWorkingSpace> {
                   const SizedBox(
                     height: 22,
                   ),
-                  ElevatedButton(
-                      style: myCreateButtonStyle,
-                      onPressed: () {
-                        openDialog();
-                      },
-                      child: const Text(
-                        'create workingspace',
-                        style: myBttnTextStyle,
-                        textAlign: TextAlign.center,
-                      )),
+                  userProvider.usersList.any(
+                    (element) => element.isAdmin,
+                  )
+                      ? ElevatedButton(
+                          style: myCreateButtonStyle,
+                          onPressed: () {
+                            openDialog();
+                          },
+                          child: const Text(
+                            'neuer Arbeitsplatz',
+                            style: myBttnTextStyle,
+                            textAlign: TextAlign.center,
+                          ))
+                      : const Center(
+                          child: Text(
+                            'Wähle einen Arbeitsplatz',
+                            style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: Colors.white),
+                          ),
+                        ),
                   const SizedBox(
                     height: 50,
                   ),
@@ -144,16 +155,24 @@ class _ChooseWorkingSpaceState extends State<ChooseWorkingSpace> {
                         itemCount: workplaceModel.workPlacesList.length,
                         scrollDirection: Axis.vertical,
                         itemBuilder: (context, index) {
-                          return Dismissible(
-                              onDismissed: (direction) {
-                                workplaceModel.workPlacesList.removeAt(index);
-                                workplaceModel.workPlaceRepoitory.deleteWorkPlace(workplaceModel.workPlacesList[index]);
-                              },
-                              key: ValueKey(workplaceModel.workPlacesList[index]),
-                              child: WorkplaceItem(
-                                project: widget.project,
-                                workplace: workplaceModel.workPlacesList[index],
-                              ));
+                          return userProvider.usersList.any(
+                            (element) => element.isAdmin,
+                          )
+                              ? Dismissible(
+                                  onDismissed: (direction) {
+                                    workplaceModel.workPlacesList.removeAt(index);
+                                    workplaceModel.workPlaceRepoitory
+                                        .deleteWorkPlace(workplaceModel.workPlacesList[index]);
+                                  },
+                                  key: ValueKey(workplaceModel.workPlacesList[index]),
+                                  child: WorkplaceItem(
+                                    project: widget.project,
+                                    workplace: workplaceModel.workPlacesList[index],
+                                  ))
+                              : WorkplaceItem(
+                                  project: widget.project,
+                                  workplace: workplaceModel.workPlacesList[index],
+                                );
                         },
                       ),
                     WorkplaceStatus.loading => const Center(

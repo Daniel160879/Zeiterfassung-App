@@ -1,28 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Employer {
+class User {
   String firstName;
   String lastName;
 
-  Employer({
-    required this.firstName,
-    required this.lastName,
-  });
+  bool isAdmin = false;
 
-  factory Employer.fromFirestore(DocumentSnapshot doc) {
+  User({required this.firstName, required this.lastName, required this.isAdmin});
+
+  factory User.fromFirestore(DocumentSnapshot doc) {
     if (!doc.exists) throw ArgumentError('mist schief gelaufen');
 
     final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-    return Employer(
+    return User(
       firstName: data['firstName'] as String,
       lastName: data['lastName'] as String,
+      isAdmin: data['isAdmin'] as bool,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'firstName': firstName,
-      'lastName': lastName,
-    };
+    return {'firstName': firstName, 'lastName': lastName, 'isAdmin': isAdmin};
   }
 }

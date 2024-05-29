@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/image_logo.dart';
@@ -15,66 +16,79 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-  final _emailController = TextEditingController(text: '');
-  final _passwordController = TextEditingController(text: '');
-  bool showLoading = false;
-  bool longEnought = false;
-  String specialCharacters = '!@#\$%^&*(),.?":{}|<>';
-  bool hasSpecialCharacter = false;
+  final _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  String firstName = '';
+  String lastName = '';
+  String email = '';
+  String password = '';
+  bool isAdmin = false;
 
-  @override
-  void dispose() {
-    super.dispose();
-    _emailController.clear();
-    _passwordController.clear();
-  }
-
-  void showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Error'),
-        backgroundColor: const Color.fromARGB(255, 80, 73, 72),
-        content: Text(
-          message,
-          style: const TextStyle(color: Colors.white, fontSize: 24, fontStyle: FontStyle.italic),
-          textAlign: TextAlign.center,
+  void signUp() async {
+    if (firstName.isEmpty || lastName.isEmpty || email.isEmpty || password.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Error'),
+          backgroundColor: const Color.fromARGB(255, 80, 73, 72),
+          content: const Text(
+            'Fülle die offenen Felder aus',
+            style: TextStyle(color: Colors.white, fontSize: 24, fontStyle: FontStyle.italic),
+            textAlign: TextAlign.center,
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: const Icon(
+                Icons.backspace_outlined,
+                size: 20,
+                color: Colors.red,
+              ),
+            )
+          ],
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(
-              Icons.backspace_outlined,
-              size: 20,
-              color: Colors.red,
-            ),
-          )
-        ],
-      ),
-    );
+      );
+    }
+    try {
+      final newUser = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      if (newUser.user != null) {
+        await newUser.user!.updateDisplayName('$firstName $lastName');
+        await newUser.user!.reload();
+
+        await _firestore.collection('user').doc(newUser.user!.uid).set({
+          'firstName': firstName,
+          'lastName': lastName,
+          'email': email,
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: const Color.fromARGB(255, 80, 73, 72),
-          title: const Text(
-            'Registration Screen',
-            style: TextStyle(
-              color: Colors.white,
-            ),
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 80, 73, 72),
+        title: const Text(
+          'Registration Screen',
+          style: TextStyle(
+            color: Colors.white,
           ),
         ),
-        body: Container(
-            decoration: myBoxdeco,
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: ListView(children: [
-                Column(children: [
+      ),
+      body: Container(
+        decoration: myBoxdeco,
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: ListView(
+            children: [
+              Column(
+                children: [
                   const SizedBox(
                     height: 15,
                   ),
@@ -83,14 +97,26 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     height: 22,
                   ),
                   TextField(
+                    onChanged: (value) => setState(() => firstName = value),
                     textAlignVertical: TextAlignVertical.center,
-                    controller: _emailController,
+                    style: const TextStyle(color: Colors.white),
+                    decoration: myFirstNameFieldDeco,
+                  ),
+                  TextField(
+                    onChanged: (value) => setState(() => lastName = value),
+                    textAlignVertical: TextAlignVertical.center,
+                    style: const TextStyle(color: Colors.white),
+                    decoration: myLastNameFieldDeco,
+                  ),
+                  TextField(
+                    onChanged: (value) => setState(() => email = value),
+                    textAlignVertical: TextAlignVertical.center,
                     style: const TextStyle(color: Colors.white),
                     decoration: myEmailFieldDeco,
                   ),
                   TextField(
+                    onChanged: (value) => setState(() => password = value),
                     textAlignVertical: TextAlignVertical.center,
-                    controller: _passwordController,
                     style: const TextStyle(color: Colors.white),
                     decoration: myPasswordFieldDeco,
                   ),
@@ -100,45 +126,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ElevatedButton(
                     style: const ButtonStyle(backgroundColor: WidgetStatePropertyAll(Color.fromARGB(255, 80, 73, 72))),
                     onPressed: () {
-                      if (_emailController.text.isEmpty && _passwordController.text.isEmpty) {
-                        showErrorDialog('Bitte gib deine Email Adresse ein!!');
-                      } else if (_emailController.text.length <= 8) {
-                        showErrorDialog('Dein Passwort ist nicht lang genug!!');
-                      } else {
-                        try {
-                          setState(() {
-                            showLoading = true;
-                            longEnought = true;
-                            hasSpecialCharacter = true;
-                          });
-
-                          FirebaseAuth.instance.createUserWithEmailAndPassword(
-                              email: _emailController.text, password: _passwordController.text);
-                        } catch (error) {
-                          showDialog(
-                              context: context,
-                              builder: (context) => const AlertDialog(
-                                    title: Text('ERROR'),
-                                    backgroundColor: Color.fromARGB(255, 80, 73, 72),
-                                  ));
-                        } finally {
-                          setState(() {
-                            showLoading = false;
-                            longEnought = false;
-                            hasSpecialCharacter = false;
-                          });
-                        }
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LoginScreen(),
-                            ));
-                      }
+                      signUp();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ));
                     },
                     child: const Text('Registrier dich'),
                   ),
-                ]),
-              ]),
-            )));
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

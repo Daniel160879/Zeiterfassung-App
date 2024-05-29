@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/provider/project_provider.dart';
+import 'package:meine_zeiterfassungs_app/provider/user_provider.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/data/project.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/ItemModel/project_item.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/decoration/projectscreen_decoration.dart';
@@ -32,7 +33,7 @@ class _ChooseProjectScreenState extends State<ChooseProjectScreen> {
           return AlertDialog(
               backgroundColor: const Color.fromARGB(255, 13, 13, 13),
               title: const Text(
-                'create new projects',
+                'neues Projekt erstellen',
                 style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
@@ -47,7 +48,7 @@ class _ChooseProjectScreenState extends State<ChooseProjectScreen> {
                       createProject();
                     },
                     child: const Text(
-                      'create new project',
+                      'Projekt speichern',
                       style: TextStyle(color: Colors.white),
                     )),
               ]);
@@ -64,7 +65,7 @@ class _ChooseProjectScreenState extends State<ChooseProjectScreen> {
   @override
   Widget build(BuildContext context) {
     final ProjectProvider projectProviderModel = context.watch<ProjectProvider>();
-
+    final UserProvider userProvider = context.watch<UserProvider>();
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
@@ -84,16 +85,24 @@ class _ChooseProjectScreenState extends State<ChooseProjectScreen> {
               const SizedBox(
                 height: 70,
               ),
-              ElevatedButton(
-                  style: myCreateButtonStyle,
-                  onPressed: () {
-                    openDialog();
-                  },
-                  child: const Text(
-                    'create new project',
-                    style: myBttnTextStyle,
-                    textAlign: TextAlign.center,
-                  )),
+              userProvider.usersList.any(
+                (element) => element.isAdmin,
+              )
+                  ? ElevatedButton(
+                      style: myCreateButtonStyle,
+                      onPressed: () {
+                        openDialog();
+                      },
+                      child: const Text(
+                        'neues Projekt',
+                        style: myBttnTextStyle,
+                        textAlign: TextAlign.center,
+                      ))
+                  : const Center(
+                      child: Text(
+                      'Wähle ein Projekt',
+                      style: TextStyle(fontSize: 35, color: Colors.white, fontWeight: FontWeight.bold),
+                    )),
               const SizedBox(
                 height: 50,
               ),
@@ -107,15 +116,19 @@ class _ChooseProjectScreenState extends State<ChooseProjectScreen> {
                     shrinkWrap: true,
                     itemCount: projectProviderModel.projectLists.length,
                     itemBuilder: (context, index) {
-                      return Dismissible(
-                        onDismissed: (direction) {
-                          projectProviderModel.projectRepository.deletProject(
-                            projectProviderModel.projectLists.removeAt(index),
-                          );
-                        },
-                        key: ValueKey(projectProviderModel.projectLists[index]),
-                        child: ProjectItem(project: projectProviderModel.projectLists[index]),
-                      );
+                      return userProvider.usersList.any(
+                        (element) => element.isAdmin,
+                      )
+                          ? Dismissible(
+                              onDismissed: (direction) {
+                                projectProviderModel.projectRepository.deletProject(
+                                  projectProviderModel.projectLists.removeAt(index),
+                                );
+                              },
+                              key: ValueKey(projectProviderModel.projectLists[index]),
+                              child: ProjectItem(project: projectProviderModel.projectLists[index]),
+                            )
+                          : ProjectItem(project: projectProviderModel.projectLists[index]);
                     },
                   ),
                 ProjectStatus.loading => const Center(
