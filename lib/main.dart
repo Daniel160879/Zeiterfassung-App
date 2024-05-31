@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/app_widget.dart';
+import 'package:meine_zeiterfassungs_app/provider/auth_provider.dart';
 import 'package:meine_zeiterfassungs_app/provider/user_provider.dart';
 import 'package:meine_zeiterfassungs_app/provider/project_provider.dart';
 import 'package:meine_zeiterfassungs_app/provider/timerec_provider.dart';
 import 'package:meine_zeiterfassungs_app/provider/workingspace_provider.dart';
 import 'package:meine_zeiterfassungs_app/screens/Users/Repository/user_firebase_repo.dart';
 import 'package:meine_zeiterfassungs_app/screens/Users/Repository/user_repository.dart';
+import 'package:meine_zeiterfassungs_app/screens/auth/repository/auth_repo.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/repository/project_firebase_repo.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/repository/project_repository.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/time_tracking_screen/repository/time_firebase_repository.dart';
@@ -21,17 +23,20 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   TimeRepoitory timeRepository = FirebaseTimeRepository();
-  UserRepository employersRepository = FirebaseEmployerRepository();
+  UserRepository userRepository = FirebaseEmployerRepository();
   WorkPlaceRepoitory workPlaceRepoitory = FirebaseWorkPlaceRepository();
   ProjectRepository projectRepository = FirebaseProjectRepository();
+  AuthRepository authRepository = AuthRepository();
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => TimerecordingProvider(timeRepository)),
         ChangeNotifierProvider(create: (context) => ProjectProvider(projectRepository)),
         ChangeNotifierProvider(create: (context) => WorkingPlaceProvider(workPlaceRepoitory)),
-        ChangeNotifierProvider(create: (context) => UserProvider(employersRepository)),
+        ChangeNotifierProvider(create: (context) => UserProvider(userRepository)),
+        ChangeNotifierProvider(create: (context) => AuthProvider(authRepository)),
       ],
       child: const MyApp(),
     ),

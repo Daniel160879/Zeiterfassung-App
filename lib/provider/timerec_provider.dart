@@ -18,7 +18,15 @@ class TimerecordingProvider extends ChangeNotifier {
   }
 
   Future<void> _loadTime() async {
-    throw Exception();
-    // notifyListeners();
+    try {
+      timeRepository.workTimes.listen((worktime) {
+        workingTimesList = worktime;
+        timeRecordingStatus = TimeRecordingStatus.loaded;
+        notifyListeners();
+      });
+    } catch (e) {
+      timeRecordingStatus = TimeRecordingStatus.errror;
+      notifyListeners();
+    }
   }
 }

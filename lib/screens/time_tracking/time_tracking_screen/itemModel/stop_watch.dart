@@ -116,11 +116,11 @@ class _StopWatchState extends State<StopWatch> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             ElevatedButton(
-                style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 191, 236, 147))),
+                style: const ButtonStyle(backgroundColor: WidgetStatePropertyAll(Color.fromARGB(255, 191, 236, 147))),
                 onPressed: startTimer,
                 child: const Text('Start')),
             ElevatedButton(
-                style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 228, 84, 84))),
+                style: const ButtonStyle(backgroundColor: WidgetStatePropertyAll(Color.fromARGB(255, 228, 84, 84))),
                 onPressed: stop,
                 child: const Text('Stop')),
           ],

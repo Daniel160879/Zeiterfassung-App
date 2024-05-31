@@ -65,7 +65,7 @@ class _MitarbeiterScreenState extends State<MitarbeiterScreen> {
                 onPressed: () {
                   createEmployers();
                 },
-                child: const Text('new employer'))
+                child: const Text('New User'))
           ],
         );
       });
@@ -105,7 +105,11 @@ class _MitarbeiterScreenState extends State<MitarbeiterScreen> {
                 onPressed: () {
                   openDialog();
                 },
-                child: const Text('Neuen Mitarbeiter\nerstellen')),
+                child: const Text(
+                  'Neuen Mitarbeiter\nerstellen',
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
+                  textAlign: TextAlign.center,
+                )),
             switch (userProvider.userStatus) {
               UserStatus.error => const Center(
                   child: Text('no data'),

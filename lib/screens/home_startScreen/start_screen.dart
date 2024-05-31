@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/decoration/style/decoration.dart';
 import 'package:meine_zeiterfassungs_app/decoration/theme/theme.dart';
-import 'package:meine_zeiterfassungs_app/screens/reg_login/Reg%20und%20Log%20Screen/login_screen.dart';
-import 'package:meine_zeiterfassungs_app/screens/reg_login/Reg%20und%20Log%20Screen/registration_screen.dart';
+import 'package:meine_zeiterfassungs_app/image_logo.dart';
+import 'package:meine_zeiterfassungs_app/screens/auth/Reg%20und%20Log%20Screen/login_screen.dart';
+import 'package:meine_zeiterfassungs_app/screens/auth/Reg%20und%20Log%20Screen/registration_screen.dart';
 
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
@@ -26,11 +27,11 @@ class StartScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Image.asset('assets/images/logo1.png'),
+              const MyLogo(),
               ElevatedButton(
                 style: const ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 80, 73, 72)),
-                  fixedSize: MaterialStatePropertyAll(
+                  backgroundColor: WidgetStatePropertyAll(Color.fromARGB(255, 80, 73, 72)),
+                  fixedSize: WidgetStatePropertyAll(
                     Size(200, 45),
                   ),
                 ),
@@ -48,8 +49,8 @@ class StartScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 style: const ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 80, 73, 72)),
-                  fixedSize: MaterialStatePropertyAll(
+                  backgroundColor: WidgetStatePropertyAll(Color.fromARGB(255, 80, 73, 72)),
+                  fixedSize: WidgetStatePropertyAll(
                     Size(200, 45),
                   ),
                 ),

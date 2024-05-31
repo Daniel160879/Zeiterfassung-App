@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/image_logo.dart';
 import 'package:meine_zeiterfassungs_app/screens/home_startScreen/home_screen.dart';
@@ -14,12 +15,31 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController(text: '');
   final _passwordController = TextEditingController(text: '');
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  String email = '';
+  String password = '';
 
   @override
   void dispose() {
     super.dispose();
-    _emailController.clear();
-    _passwordController.clear();
+    _emailController.dispose();
+    _passwordController.dispose();
+  }
+
+  void signInAndNavigate() async {
+    try {
+      final userCredential =
+          await _auth.signInWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
+      if (userCredential.user!.emailVerified) {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+      }
+    } on FirebaseAuthException catch (e) {
+      print(e);
+    }
+  }
+
+  void resetPassword() {
+    _auth.sendPasswordResetEmail(email: email);
   }
 
   @override
@@ -50,12 +70,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 25,
                 ),
                 TextField(
+                  onChanged: (value) => setState(() => email = value),
                   textAlignVertical: TextAlignVertical.center,
                   controller: _emailController,
                   style: const TextStyle(color: Colors.white),
                   decoration: myEmailFieldDeco,
                 ),
                 TextField(
+                  onChanged: (value) => setState(() => email = value),
                   textAlignVertical: TextAlignVertical.center,
                   controller: _passwordController,
                   style: const TextStyle(color: Colors.white),
@@ -73,7 +95,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          resetPassword();
+                        },
                         child: const Text(
                           'passwort vergessen?',
                           style: TextStyle(color: Colors.white24),
@@ -92,12 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: ((context) => const HomeScreen()),
-                      ),
-                    );
+                    signInAndNavigate();
                   },
                   child: const Text(
                     'Login',

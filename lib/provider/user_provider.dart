@@ -6,6 +6,7 @@ enum UserStatus { loading, loaded, error }
 
 class UserProvider extends ChangeNotifier {
   final UserRepository userRepository;
+  late User currentUser;
   UserStatus userStatus = UserStatus.loading;
   List<User> usersList = [];
 
@@ -14,7 +15,14 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<void> addEmployers(User user) async {
-    await userRepository.setEmployerCompletion(user);
+    await userRepository.setUserCompletion(user);
+    notifyListeners();
+  }
+
+  Future<void> loadCurrentUser(String id) async {
+    final user = await userRepository.loadUser(id);
+    currentUser = user;
+    usersList.add(currentUser);
     notifyListeners();
   }
 

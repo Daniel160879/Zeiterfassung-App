@@ -85,9 +85,7 @@ class _ChooseProjectScreenState extends State<ChooseProjectScreen> {
               const SizedBox(
                 height: 70,
               ),
-              userProvider.usersList.any(
-                (element) => element.isAdmin,
-              )
+              userProvider.currentUser.isAdmin
                   ? ElevatedButton(
                       style: myCreateButtonStyle,
                       onPressed: () {
@@ -116,9 +114,7 @@ class _ChooseProjectScreenState extends State<ChooseProjectScreen> {
                     shrinkWrap: true,
                     itemCount: projectProviderModel.projectLists.length,
                     itemBuilder: (context, index) {
-                      return userProvider.usersList.any(
-                        (element) => element.isAdmin,
-                      )
+                      return userProvider.currentUser.isAdmin
                           ? Dismissible(
                               onDismissed: (direction) {
                                 projectProviderModel.projectRepository.deletProject(

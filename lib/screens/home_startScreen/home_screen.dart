@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/decoration/style/decoration.dart';
+import 'package:meine_zeiterfassungs_app/provider/auth_provider.dart';
 import 'package:meine_zeiterfassungs_app/provider/user_provider.dart';
 import 'package:meine_zeiterfassungs_app/screens/calendar/calendar_screen.dart';
 import 'package:meine_zeiterfassungs_app/screens/logout/logout.screen.dart';
@@ -10,12 +11,23 @@ import 'package:provider/provider.dart';
 import '../../decoration/buttonStyle/button_styles.dart';
 import '../../decoration/theme/theme.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    final currentId = context.read<AuthProvider>().authRepository.firebaseAuth.currentUser!.uid;
+    context.read<UserProvider>().loadCurrentUser(currentId);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    //  final UserProvider userProvider = context.watch<UserProvider>();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

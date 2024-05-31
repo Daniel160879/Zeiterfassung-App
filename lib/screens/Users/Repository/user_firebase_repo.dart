@@ -14,23 +14,20 @@ class FirebaseEmployerRepository implements UserRepository {
   }
 
   @override
-  void resetEmployer() {
-    final userCollectionRef = _firestore.collection('employer');
-    userCollectionRef.get().then((snapshot) {
-      for (final doc in snapshot.docs) {
-        doc.reference.delete();
-      }
-    });
+  Future<User> loadUser(String id) async {
+    final idCollectionRef = _firestore.collection('user').doc(id);
+    final snapshot = await idCollectionRef.get();
+    return User.fromFirestore(snapshot);
   }
 
   @override
-  void deletEmployer(User user) {
+  void deletUser(User user) {
     final userCollectionRef = _firestore.collection('employer');
     userCollectionRef.doc().delete();
   }
 
   @override
-  Future<void> setEmployerCompletion(User user) async {
+  Future<void> setUserCompletion(User user) async {
     final userCallectionRef = _firestore.collection('employer');
     final docRef = userCallectionRef.doc();
     await docRef.set(user.toMap());

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/decoration/buttonStyle/button_styles.dart';
 import 'package:meine_zeiterfassungs_app/decoration/style/decoration.dart';
@@ -9,6 +10,7 @@ class LogoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final auth = FirebaseAuth.instance;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 80, 73, 72),
@@ -31,6 +33,7 @@ class LogoutScreen extends StatelessWidget {
                   ElevatedButton(
                       style: myHomeButtonStyle,
                       onPressed: () {
+                        auth.signOut();
                         exit(0);
                       },
                       child: const Text(
