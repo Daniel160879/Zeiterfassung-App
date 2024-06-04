@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/provider/timerec_provider.dart';
-import 'package:meine_zeiterfassungs_app/provider/user_provider.dart';
 import 'package:provider/provider.dart';
 
 class TimeList extends StatelessWidget {
