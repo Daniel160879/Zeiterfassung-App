@@ -57,7 +57,7 @@ class _ChooseWorkingSpaceState extends State<ChooseWorkingSpace> {
       });
 
   void createWorkplace() {
-    WorkPlace workPlace = WorkPlace(id: '', title: workspaceController.text);
+    WorkPlace workPlace = WorkPlace(workPlaceId: '', title: workspaceController.text);
     Provider.of<WorkingPlaceProvider>(context, listen: false).addWorkPlace(workPlace);
     workspaceController.clear();
     Navigator.of(context).pop();
@@ -65,21 +65,19 @@ class _ChooseWorkingSpaceState extends State<ChooseWorkingSpace> {
 
   @override
   Widget build(BuildContext context) {
-    final WorkingPlaceProvider workplaceModel = context.watch<WorkingPlaceProvider>();
-    final UserProvider userProvider = context.watch<UserProvider>();
+    final workplaceModel = context.watch<WorkingPlaceProvider>();
+    final userProvider = context.watch<UserProvider>();
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: const Color.fromARGB(255, 80, 73, 72),
-          title: const Text(
-            'Working space Screen',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
+          title: const Text('Arbeitsplätze', style: myAppBarTextStyle),
         ),
         body: Center(
           child: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
             decoration: myBoxdeco,
             child: Center(
               child: Column(
@@ -145,40 +143,42 @@ class _ChooseWorkingSpaceState extends State<ChooseWorkingSpace> {
                   const SizedBox(
                     height: 50,
                   ),
-                  switch (workplaceModel.workplaceStatus) {
-                    WorkplaceStatus.error => const Center(
-                        child: Text('no data'),
-                      ),
-                    WorkplaceStatus.loaded => ListView.builder(
-                        shrinkWrap: true,
-                        padding: const EdgeInsets.all(16),
-                        itemCount: workplaceModel.workPlacesList.length,
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (context, index) {
-                          return userProvider.usersList.any(
-                            (element) => element.isAdmin,
-                          )
-                              ? Dismissible(
-                                  onDismissed: (direction) {
-                                    workplaceModel.workPlacesList.removeAt(index);
-                                    workplaceModel.workPlaceRepoitory
-                                        .deleteWorkPlace(workplaceModel.workPlacesList[index]);
-                                  },
-                                  key: ValueKey(workplaceModel.workPlacesList[index]),
-                                  child: WorkplaceItem(
+                  SizedBox(
+                    height: 523,
+                    width: 400,
+                    child: switch (workplaceModel.workplaceStatus) {
+                      WorkplaceStatus.error => const Center(
+                          child: Text('no data'),
+                        ),
+                      WorkplaceStatus.loaded => ListView.builder(
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.all(16),
+                          itemCount: workplaceModel.workPlacesList.length,
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, index) {
+                            return userProvider.currentUser.isAdmin
+                                ? Dismissible(
+                                    onDismissed: (direction) {
+                                      workplaceModel.workPlacesList.removeAt(index);
+                                      workplaceModel.workPlaceRepoitory
+                                          .deleteWorkPlace(workplaceModel.workPlacesList[index]);
+                                    },
+                                    key: ValueKey(workplaceModel.workPlacesList[index]),
+                                    child: WorkplaceItem(
+                                      project: widget.project,
+                                      workplace: workplaceModel.workPlacesList[index],
+                                    ))
+                                : WorkplaceItem(
                                     project: widget.project,
                                     workplace: workplaceModel.workPlacesList[index],
-                                  ))
-                              : WorkplaceItem(
-                                  project: widget.project,
-                                  workplace: workplaceModel.workPlacesList[index],
-                                );
-                        },
-                      ),
-                    WorkplaceStatus.loading => const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                  }
+                                  );
+                          },
+                        ),
+                      WorkplaceStatus.loading => const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                    },
+                  )
                 ],
               ),
             ),

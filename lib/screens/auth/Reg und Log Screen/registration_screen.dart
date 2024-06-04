@@ -55,6 +55,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             'firstName': firstName,
             'lastName': lastName,
             'email': email,
+            'isAdmin': false,
           });
         }
       } catch (e) {

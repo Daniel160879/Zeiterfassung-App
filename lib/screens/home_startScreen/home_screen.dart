@@ -1,6 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/decoration/style/decoration.dart';
-import 'package:meine_zeiterfassungs_app/provider/auth_provider.dart';
 import 'package:meine_zeiterfassungs_app/provider/user_provider.dart';
 import 'package:meine_zeiterfassungs_app/screens/calendar/calendar_screen.dart';
 import 'package:meine_zeiterfassungs_app/screens/logout/logout.screen.dart';
@@ -19,10 +19,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   void initState() {
     super.initState();
-    final currentId = context.read<AuthProvider>().authRepository.firebaseAuth.currentUser!.uid;
+    final currentId = _auth.currentUser!.uid;
     context.read<UserProvider>().loadCurrentUser(currentId);
   }
 
@@ -32,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 80, 73, 72),
-        title: const Text('Home Screen', style: myAppBarTextStyle),
+        title: const Text('Home', style: myAppBarTextStyle),
       ),
       body: Container(
         decoration: myBoxdeco,
@@ -58,9 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 child: const Text('Kalender', style: myBttnTextStyle),
               ),
-              //  userProvider.usersList.any(
-              //  (element) => element.isAdmin,
-              //) ?
               ElevatedButton(
                 style: myHomeButtonStyle,
                 onPressed: () {
@@ -77,7 +75,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              //:
               ElevatedButton(
                 style: myHomeButtonStyle,
                 onPressed: () {

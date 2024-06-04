@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/data/project.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/working_space_screen/data/workplace.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/working_space_screen/repository/workplace_repository.dart';
 
@@ -40,6 +41,18 @@ class FirebaseWorkPlaceRepository implements WorkPlaceRepoitory {
     final workplaceCollectionRef = _firestore.collection('workplaces');
     final docRef = workplaceCollectionRef.doc();
     await docRef.set(workPlace.toMap());
-    workPlace.id = docRef.id;
+  }
+
+  @override
+  Future<void> setWorkplaceCompletionToUser(WorkPlace workPlace, String userId, Project project) async {
+    final workplaceCollectionRef = _firestore.collection('user');
+    final docRef = workplaceCollectionRef
+        .doc(userId)
+        .collection('projects')
+        .doc(project.projectId)
+        .collection('workplaces')
+        .doc(workPlace.workPlaceId);
+
+    await docRef.set(workPlace.toMap());
   }
 }

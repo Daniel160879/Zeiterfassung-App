@@ -36,10 +36,16 @@ class FirebaseProjectRepository implements ProjectRepository {
   }
 
   @override
+  Future<void> setProjectCompletionToUser(Project project, String userId) async {
+    final projectCollectionRef = _firestore.collection('user');
+    final docRef = projectCollectionRef.doc(userId).collection('projects').doc(project.projectId);
+    await docRef.set(project.toMap());
+  }
+
+  @override
   Future<void> setProjectCompletion(Project project) async {
     final projectCollectionRef = _firestore.collection('projects');
     final docRef = projectCollectionRef.doc();
     await docRef.set(project.toMap());
-    project.id = docRef.id;
   }
 }

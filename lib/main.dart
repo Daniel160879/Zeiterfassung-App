@@ -24,7 +24,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  TimeRepoitory timeRepository = FirebaseTimeRepository();
+  TimeRepository timeRepository = FirebaseTimeRepository();
   UserRepository userRepository = FirebaseEmployerRepository();
   WorkPlaceRepoitory workPlaceRepoitory = FirebaseWorkPlaceRepository();
   ProjectRepository projectRepository = FirebaseProjectRepository();

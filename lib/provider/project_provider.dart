@@ -13,6 +13,11 @@ class ProjectProvider extends ChangeNotifier {
     _loadProject();
   }
 
+  Future<void> addProjectToUser(Project project, String userId) async {
+    await projectRepository.setProjectCompletionToUser(project, userId);
+    notifyListeners();
+  }
+
   Future<void> addProject(Project project) async {
     await projectRepository.setProjectCompletion(project);
     notifyListeners();

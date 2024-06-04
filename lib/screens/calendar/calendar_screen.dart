@@ -170,7 +170,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     ElevatedButton(
                       style: const ButtonStyle(
                         alignment: Alignment.center,
-                        backgroundColor: MaterialStatePropertyAll(Colors.black),
+                        backgroundColor: WidgetStatePropertyAll(Colors.black),
                       ),
                       onPressed: () {
                         urlaub.addAll({

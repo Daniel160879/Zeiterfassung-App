@@ -70,7 +70,8 @@ class _MitarbeiterScreenState extends State<MitarbeiterScreen> {
         );
       });
   void createEmployers() {
-    User user = User(firstName: _firstNameController.text, lastName: _lastNameController.text, isAdmin: false);
+    User user =
+        User(userId: '', firstName: _firstNameController.text, lastName: _lastNameController.text, isAdmin: false);
     Provider.of<UserProvider>(context, listen: false).addEmployers(user);
     _firstNameController.clear();
     _lastNameController.clear();

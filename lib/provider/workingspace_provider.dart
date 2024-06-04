@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/data/project.dart';
+
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/working_space_screen/data/workplace.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/working_space_screen/repository/workplace_repository.dart';
 
@@ -15,6 +17,11 @@ class WorkingPlaceProvider extends ChangeNotifier {
 
   Future<void> addWorkPlace(WorkPlace workPlace) async {
     await workPlaceRepoitory.setWorkPlaceCompletion(workPlace);
+    notifyListeners();
+  }
+
+  Future<void> addWorkPlaceToUser(WorkPlace workPlace, String userId, Project project) async {
+    await workPlaceRepoitory.setWorkplaceCompletionToUser(workPlace, userId, project);
     notifyListeners();
   }
 

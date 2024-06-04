@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:meine_zeiterfassungs_app/provider/auth_provider.dart';
+import 'package:meine_zeiterfassungs_app/provider/project_provider.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/data/project.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/working_space_screen/workingspace_screen.dart';
+import 'package:provider/provider.dart';
 import '../../../../decoration/theme/theme.dart';
 
 class ProjectItem extends StatelessWidget {
@@ -22,6 +25,9 @@ class ProjectItem extends StatelessWidget {
             ),
             child: TextButton(
               onPressed: () {
+                context.read<ProjectProvider>().addProjectToUser(
+                    project, context.read<AuthProvider>().authRepository.firebaseAuth.currentUser!.uid);
+
                 Navigator.push(
                     context,
                     MaterialPageRoute(

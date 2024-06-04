@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/image_logo.dart';
+import 'package:meine_zeiterfassungs_app/provider/user_provider.dart';
 import 'package:meine_zeiterfassungs_app/screens/home_startScreen/home_screen.dart';
+import 'package:provider/provider.dart';
 import '../../../decoration/style/decoration.dart';
 import '../Const/textfield_deco.dart';
 
@@ -18,6 +20,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String email = '';
   String password = '';
+
+  @override
+  void initState() {
+    super.initState();
+    final currentId = _auth.currentUser!.uid;
+    context.read<UserProvider>().loadCurrentUser(currentId);
+  }
 
   @override
   void dispose() {

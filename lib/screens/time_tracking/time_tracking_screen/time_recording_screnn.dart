@@ -37,14 +37,14 @@ class TimeRecordingScreen extends StatelessWidget {
                 const SizedBox(
                   height: 25,
                 ),
-                const StopWatch(),
-                const SizedBox(
-                  height: 25,
-                ),
-                TimeList(
+                StopWatch(
                   project: project,
                   workPlace: workPlace,
                 ),
+                const SizedBox(
+                  height: 25,
+                ),
+                const TimeList(),
               ],
             ),
           ]),
