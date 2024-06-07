@@ -31,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 80, 73, 72),
         title: const Text('Home', style: myAppBarTextStyle),

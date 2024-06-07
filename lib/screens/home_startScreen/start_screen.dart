@@ -11,16 +11,6 @@ class StartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 80, 73, 72),
-        title: const Text(
-          'StartScreen',
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-      ),
       body: Container(
         decoration: myBoxdeco,
         child: Center(

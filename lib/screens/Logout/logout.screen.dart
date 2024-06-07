@@ -1,9 +1,9 @@
-import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/decoration/buttonStyle/button_styles.dart';
 import 'package:meine_zeiterfassungs_app/decoration/style/decoration.dart';
 import 'package:meine_zeiterfassungs_app/decoration/theme/theme.dart';
+import 'package:meine_zeiterfassungs_app/screens/auth/Reg%20und%20Log%20Screen/login_screen.dart';
 
 class LogoutScreen extends StatelessWidget {
   const LogoutScreen({super.key});
@@ -34,7 +34,7 @@ class LogoutScreen extends StatelessWidget {
                       style: myHomeButtonStyle,
                       onPressed: () {
                         auth.signOut();
-                        exit(0);
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
                       },
                       child: const Text(
                         'Logout',

@@ -18,15 +18,14 @@ class StopWatch extends StatefulWidget {
 }
 
 class _StopWatchState extends State<StopWatch> {
-  late DateTime dateTime = DateTime.timestamp();
+  DateTime dateTime = DateTime.timestamp();
   Stopwatch stopwatch = Stopwatch();
   Timer? timer;
 
   void stop() {
     stopwatch.stop();
-
     WorkingTime workingTime = WorkingTime(
-      workday: dateTime.day.toString(),
+      workday: dateTime,
       projectTitle: widget.project.title,
       workplaceTitle: widget.workPlace.title,
       hours: stopwatch.elapsed.inHours.remainder(24),
@@ -34,11 +33,11 @@ class _StopWatchState extends State<StopWatch> {
       seconds: stopwatch.elapsed.inSeconds.remainder(60),
       workingTimeId: '',
     );
-
-    context.read<TimerecordingProvider>().addWorkingTimeToUser(workingTime, widget.project,
-        context.read<AuthProvider>().authRepository.firebaseAuth.currentUser!.uid, widget.workPlace);
-    timer?.cancel();
     stopwatch.reset();
+    timer!.cancel();
+    context
+        .read<TimerecordingProvider>()
+        .addWorkingTimeToUser(workingTime, context.read<AuthProvider>().authRepository.firebaseAuth.currentUser!.uid);
   }
 
   void startTimer() {
@@ -47,13 +46,6 @@ class _StopWatchState extends State<StopWatch> {
     timer ??= Timer.periodic(const Duration(milliseconds: 200), (_) {
       setState(() {});
     });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    timer?.cancel();
-    timer = null;
   }
 
   @override

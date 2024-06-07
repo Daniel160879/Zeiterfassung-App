@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meine_zeiterfassungs_app/screens/auth/repository/auth_repo.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/data/project.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/time_tracking_screen/data/working_time.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/time_tracking_screen/repository/time_repository.dart';
@@ -10,27 +11,37 @@ class TimerecordingProvider extends ChangeNotifier {
   final TimeRepository timeRepository;
   TimeRecordingStatus timeRecordingStatus = TimeRecordingStatus.loaded;
   List<WorkingTime> workingTimesList = [];
+  final AuthRepository authRepository;
 
-  TimerecordingProvider(this.timeRepository) {
-    _loadTime();
+  Project project;
+
+  WorkPlace workPlace;
+
+  TimerecordingProvider(this.timeRepository, this.authRepository, this.project, this.workPlace) {
+    _loadWorktime();
   }
+
   Future<void> addWorkingTimeToUser(
-      WorkingTime workingTime, Project project, String userId, WorkPlace workPlace) async {
-    await timeRepository.setWorkTimeComplitionToUser(workingTime, project, userId, workPlace);
+    WorkingTime workingTime,
+    String userId,
+  ) async {
+    await timeRepository.setWorkTimeComplitionToUser(
+      workingTime,
+      userId,
+    );
     workingTimesList.add(workingTime);
+
     notifyListeners();
   }
 
-  Future<void> _loadTime() async {
-    try {
-      timeRepository.workTimes.listen((worktime) {
-        workingTimesList = worktime;
-        timeRecordingStatus = TimeRecordingStatus.loaded;
-        notifyListeners();
-      });
-    } catch (e) {
-      timeRecordingStatus = TimeRecordingStatus.errror;
+  void _loadWorktime() async {
+    final stream = timeRepository.getWorktimesStream(
+      authRepository.firebaseAuth.currentUser!.uid,
+    );
+    stream.listen((workingTimes) {
+      workingTimesList.clear();
+      workingTimesList.addAll(workingTimes);
       notifyListeners();
-    }
+    });
   }
 }

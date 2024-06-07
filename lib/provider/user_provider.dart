@@ -22,7 +22,7 @@ class UserProvider extends ChangeNotifier {
   Future<void> loadCurrentUser(String id) async {
     final user = await userRepository.loadUser(id);
     currentUser = user;
-    usersList.add(currentUser);
+
     notifyListeners();
   }
 

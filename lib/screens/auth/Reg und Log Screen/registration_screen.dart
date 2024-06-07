@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meine_zeiterfassungs_app/decoration/theme/theme.dart';
 import 'package:meine_zeiterfassungs_app/image_logo.dart';
 import 'package:meine_zeiterfassungs_app/screens/auth/Const/textfield_deco.dart';
 import 'package:meine_zeiterfassungs_app/screens/auth/Reg%20und%20Log%20Screen/login_screen.dart';
@@ -70,12 +71,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 80, 73, 72),
-        title: const Text(
-          'Registration Screen',
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
+        title: const Text('Registrierung', style: myBttnTextStyle),
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),

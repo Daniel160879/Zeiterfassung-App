@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class WorkingTime {
   String workingTimeId;
-  String workday;
+  DateTime workday;
   String projectTitle;
   String workplaceTitle;
   int seconds;
@@ -29,7 +29,7 @@ class WorkingTime {
     final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return WorkingTime(
       workingTimeId: doc.id,
-      workday: data['workday'] as String,
+      workday: (data['workday'] as Timestamp).toDate(),
       projectTitle: data['projectTitle'] as String,
       workplaceTitle: data['workplaceTitle'] as String,
       hours: data['hours'] as int,

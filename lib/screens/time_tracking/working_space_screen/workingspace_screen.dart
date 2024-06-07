@@ -121,9 +121,7 @@ class _ChooseWorkingSpaceState extends State<ChooseWorkingSpace> {
                   const SizedBox(
                     height: 22,
                   ),
-                  userProvider.usersList.any(
-                    (element) => element.isAdmin,
-                  )
+                  userProvider.currentUser.isAdmin
                       ? ElevatedButton(
                           style: myCreateButtonStyle,
                           onPressed: () {

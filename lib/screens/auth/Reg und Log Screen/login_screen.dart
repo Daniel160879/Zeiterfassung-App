@@ -1,9 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/image_logo.dart';
-import 'package:meine_zeiterfassungs_app/provider/user_provider.dart';
-import 'package:meine_zeiterfassungs_app/screens/home_startScreen/home_screen.dart';
-import 'package:provider/provider.dart';
 import '../../../decoration/style/decoration.dart';
 import '../Const/textfield_deco.dart';
 
@@ -24,8 +21,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    final currentId = _auth.currentUser!.uid;
-    context.read<UserProvider>().loadCurrentUser(currentId);
   }
 
   @override
@@ -37,13 +32,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void signInAndNavigate() async {
     try {
-      final userCredential =
-          await _auth.signInWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
-      if (userCredential.user!.emailVerified) {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+      if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+        const snackBar = SnackBar(
+          content: Text("Fülle die offenen Felder aus"),
+          backgroundColor: Colors.red,
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+        await _auth.signInWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
       }
     } on FirebaseAuthException catch (e) {
-      print(e);
+      Text(e.code);
     }
   }
 

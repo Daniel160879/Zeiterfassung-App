@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:meine_zeiterfassungs_app/provider/auth_provider.dart';
 import 'package:meine_zeiterfassungs_app/provider/timerec_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -9,6 +11,7 @@ class TimeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
     return Consumer<TimerecordingProvider>(builder: (context, model, child) {
       return Container(
         height: 300,
@@ -22,21 +25,24 @@ class TimeList extends StatelessWidget {
               return Dismissible(
                 key: ValueKey(model.workingTimesList[index]),
                 onDismissed: (direction) {
-                  model.timeRepository.deleteWorkPlace(model.workingTimesList[index]);
+                  model.timeRepository.deleteWorkTime(
+                      context.read<TimerecordingProvider>().workingTimesList[index].workingTimeId,
+                      context.read<AuthProvider>().authRepository.firebaseAuth.currentUser!.uid);
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
-                      height: 120,
-                      width: 300,
+                      height: 128,
+                      width: 320,
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(
                             height: 5,
                           ),
                           Text(
-                            'Arbeitstag : ${model.workingTimesList[index].workday}',
-                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
+                            '           ${DateFormat.yMEd('de').format(model.workingTimesList[index].workday)}',
+                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
                           ),
                           Row(
                             children: [
@@ -74,14 +80,14 @@ class TimeList extends StatelessWidget {
                               ),
                               SizedBox(
                                 width: 93,
-                                height: 78,
+                                height: 70,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     const Text('Std | Min | Sec'),
                                     Text(
-                                      '${model.workingTimesList[index].hours} : ${model.workingTimesList[index].minutes} : ${model.workingTimesList[index].seconds}',
+                                      '${twoDigits(model.workingTimesList[index].hours)} : ${twoDigits(model.workingTimesList[index].minutes)} : ${twoDigits(model.workingTimesList[index].seconds)}',
                                       style: const TextStyle(
                                           color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
                                     ),

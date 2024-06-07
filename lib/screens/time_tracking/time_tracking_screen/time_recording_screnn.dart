@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:meine_zeiterfassungs_app/provider/timerec_provider.dart';
+import 'package:meine_zeiterfassungs_app/screens/auth/repository/auth_repo.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/projectScreen/data/project.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/time_tracking_screen/itemModel/stop_watch.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/time_tracking_screen/itemModel/pro_u_arbeitsplatz.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/time_tracking_screen/itemModel/workingday_list.dart';
+import 'package:meine_zeiterfassungs_app/screens/time_tracking/time_tracking_screen/repository/time_firebase_repository.dart';
 import 'package:meine_zeiterfassungs_app/screens/time_tracking/working_space_screen/data/workplace.dart';
+import 'package:provider/provider.dart';
 import '../../../decoration/style/decoration.dart';
 import '../../../decoration/theme/theme.dart';
 
@@ -18,36 +22,39 @@ class TimeRecordingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Zeiterfassung', style: myAppBarTextStyle),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 80, 73, 72),
-      ),
-      body: Container(
-        decoration: myBoxdeco,
-        child: Center(
-          child: ListView(children: [
-            Column(
-              children: [
-                const SizedBox(
-                  height: 25,
-                ),
-                TimeRecordingItem(project: project, workPlace: workPlace),
-                const SizedBox(
-                  height: 25,
-                ),
-                StopWatch(
-                  project: project,
-                  workPlace: workPlace,
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                const TimeList(),
-              ],
-            ),
-          ]),
+    return ChangeNotifierProvider(
+      create: (context) => TimerecordingProvider(FirebaseTimeRepository(), AuthRepository(), project, workPlace),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Zeiterfassung', style: myAppBarTextStyle),
+          centerTitle: true,
+          backgroundColor: const Color.fromARGB(255, 80, 73, 72),
+        ),
+        body: Container(
+          decoration: myBoxdeco,
+          child: Center(
+            child: ListView(children: [
+              Column(
+                children: [
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  TimeRecordingItem(project: project, workPlace: workPlace),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  StopWatch(
+                    project: project,
+                    workPlace: workPlace,
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  const TimeList(),
+                ],
+              ),
+            ]),
+          ),
         ),
       ),
     );

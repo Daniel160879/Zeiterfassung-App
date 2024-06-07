@@ -28,8 +28,8 @@ class TimeRecordingItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               const Text(
-                'Project :',
-                style: myTextStyle,
+                'Projekt :',
+                style: myAppBarTextStyle,
               ),
               Text(
                 project.title,
