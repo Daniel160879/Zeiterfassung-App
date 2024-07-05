@@ -9,21 +9,18 @@ class FirebaseTimeRepository implements TimeRepository {
   Stream<List<WorkingTime>> getWorktimesStream(
     String userId,
   ) {
-    return FirebaseFirestore.instance
-        .collection('user')
-        .doc(userId)
-        .collection('worktimes')
-        .snapshots()
-        .map((snapshot) => snapshot.docs.map((e) => WorkingTime.fromFirestore(e)).toList());
+    return _firestore.collection('user').doc(userId).collection('worktimes').snapshots().map((snapshot) =>
+        snapshot.docs.map((e) => WorkingTime.fromFirestore(e)).toList()
+          ..sort((a, b) => a.workday.compareTo(b.workday)));
   }
 
   @override
-  Future<void> deleteWorkTime(String workingTimeId, String userId) async {
+  Future<void> deleteWorkTime(WorkingTime workingTime, String userId) async {
     await _firestore
         .collection('user')
         .doc(userId)
         .collection('worktimes')
-        .where('worktimes', isEqualTo: workingTimeId)
+        .where('worktimes', isEqualTo: workingTime)
         .get()
         .then(
           (snapshot) => snapshot.docs.forEach(

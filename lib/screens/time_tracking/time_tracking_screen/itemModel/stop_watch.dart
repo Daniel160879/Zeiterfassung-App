@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/provider/auth_provider.dart';
 import 'package:meine_zeiterfassungs_app/provider/timerec_provider.dart';
@@ -25,16 +24,20 @@ class _StopWatchState extends State<StopWatch> {
   void stop() {
     stopwatch.stop();
     WorkingTime workingTime = WorkingTime(
-      workday: dateTime,
-      projectTitle: widget.project.title,
-      workplaceTitle: widget.workPlace.title,
-      hours: stopwatch.elapsed.inHours.remainder(24),
-      minutes: stopwatch.elapsed.inMinutes.remainder(60),
-      seconds: stopwatch.elapsed.inSeconds.remainder(60),
-      workingTimeId: '',
-    );
+        workday: dateTime,
+        projectTitle: widget.project.title,
+        workplaceTitle: widget.workPlace.title,
+        hours: stopwatch.elapsed.inHours.remainder(24),
+        minutes: stopwatch.elapsed.inMinutes.remainder(60),
+        seconds: stopwatch.elapsed.inSeconds.remainder(60),
+        workingTimeId: '',
+        pricePerHours: widget.workPlace.pricePerHour);
     stopwatch.reset();
+    setState(() {
+      //damit timer auf null gesetzt wird
+    });
     timer!.cancel();
+    timer = null;
     context
         .read<TimerecordingProvider>()
         .addWorkingTimeToUser(workingTime, context.read<AuthProvider>().authRepository.firebaseAuth.currentUser!.uid);
@@ -46,6 +49,11 @@ class _StopWatchState extends State<StopWatch> {
     timer ??= Timer.periodic(const Duration(milliseconds: 200), (_) {
       setState(() {});
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -89,22 +97,19 @@ class _StopWatchState extends State<StopWatch> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 102,
-                width: 102,
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.white),
-                child: Column(
-                  children: [
-                    Text(
-                      textAlign: TextAlign.center,
-                      seconds,
-                      style: const TextStyle(fontSize: 50),
-                    ),
-                    const Text('Seconds')
-                  ],
-                ),
+            Container(
+              height: 102,
+              width: 102,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.white),
+              child: Column(
+                children: [
+                  Text(
+                    textAlign: TextAlign.center,
+                    seconds,
+                    style: const TextStyle(fontSize: 50),
+                  ),
+                  const Text('Seconds')
+                ],
               ),
             ),
           ],
