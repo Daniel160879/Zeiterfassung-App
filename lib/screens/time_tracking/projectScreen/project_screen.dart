@@ -64,8 +64,8 @@ class _ChooseProjectScreenState extends State<ChooseProjectScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final ProjectProvider projectProviderModel = context.watch<ProjectProvider>();
-    final UserProvider userProvider = context.watch<UserProvider>();
+    final projectProviderModel = context.watch<ProjectProvider>();
+    final userProvider = context.watch<UserProvider>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -73,8 +73,6 @@ class _ChooseProjectScreenState extends State<ChooseProjectScreen> {
           backgroundColor: const Color.fromARGB(255, 80, 73, 72),
           title: const Text('Projekte', style: myAppBarTextStyle)),
       body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
         decoration: myBoxdeco,
         child: Center(
           child: Column(
@@ -102,36 +100,38 @@ class _ChooseProjectScreenState extends State<ChooseProjectScreen> {
               const SizedBox(
                 height: 50,
               ),
-              SizedBox(
-                height: 630,
-                width: 400,
-                child: switch (projectProviderModel.projectStatus) {
-                  ProjectStatus.error => const Center(
-                      child: Text('no data'),
-                    ),
-                  ProjectStatus.loaded => ListView.builder(
-                      padding: const EdgeInsets.all(16),
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: projectProviderModel.projectLists.length,
-                      itemBuilder: (context, index) {
-                        return userProvider.currentUser.isAdmin
-                            ? Dismissible(
-                                onDismissed: (direction) {
-                                  projectProviderModel.projectRepository.deletProject(
-                                    projectProviderModel.projectLists.removeAt(index),
-                                  );
-                                },
-                                key: ValueKey(projectProviderModel.projectLists[index]),
-                                child: ProjectItem(project: projectProviderModel.projectLists[index]),
-                              )
-                            : ProjectItem(project: projectProviderModel.projectLists[index]);
-                      },
-                    ),
-                  ProjectStatus.loading => const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                },
+              Expanded(
+                child: SizedBox(
+                  height: 630,
+                  width: 400,
+                  child: switch (projectProviderModel.projectStatus) {
+                    ProjectStatus.error => const Center(
+                        child: Text('no data'),
+                      ),
+                    ProjectStatus.loaded => ListView.builder(
+                        padding: const EdgeInsets.all(16),
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: projectProviderModel.projectLists.length,
+                        itemBuilder: (context, index) {
+                          return userProvider.currentUser.isAdmin
+                              ? Dismissible(
+                                  onDismissed: (direction) {
+                                    projectProviderModel.projectRepository.deletProject(
+                                      projectProviderModel.projectLists.removeAt(index),
+                                    );
+                                  },
+                                  key: ValueKey(projectProviderModel.projectLists[index]),
+                                  child: ProjectItem(project: projectProviderModel.projectLists[index]),
+                                )
+                              : ProjectItem(project: projectProviderModel.projectLists[index]);
+                        },
+                      ),
+                    ProjectStatus.loading => const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                  },
+                ),
               )
             ],
           ),

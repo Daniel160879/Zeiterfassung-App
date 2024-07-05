@@ -24,11 +24,13 @@ class ChooseWorkingSpace extends StatefulWidget {
 
 class _ChooseWorkingSpaceState extends State<ChooseWorkingSpace> {
   final workspaceController = TextEditingController();
+  final priceController = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
     workspaceController.dispose();
+    priceController.dispose();
   }
 
   void openDialog() => showDialog<String>(
@@ -47,19 +49,30 @@ class _ChooseWorkingSpaceState extends State<ChooseWorkingSpace> {
               decoration: myWorkplaceDeco,
               controller: workspaceController,
             ),
+            TextField(
+              style: const TextStyle(color: Colors.white),
+              decoration: myPricePerHourDeco,
+              controller: priceController,
+            ),
             TextButton(
-                onPressed: () {
-                  createWorkplace();
-                },
-                child: const Text('Arbeitsplatz speichern'))
+              onPressed: () {
+                createWorkplace();
+              },
+              child: const Text(
+                'Arbeitsplatz speichern',
+                style: TextStyle(color: Colors.white),
+              ),
+            )
           ],
         );
       });
 
   void createWorkplace() {
-    WorkPlace workPlace = WorkPlace(workPlaceId: '', title: workspaceController.text);
+    var integerNumber = int.parse(priceController.text);
+    WorkPlace workPlace = WorkPlace(workPlaceId: '', title: workspaceController.text, pricePerHour: integerNumber);
     Provider.of<WorkingPlaceProvider>(context, listen: false).addWorkPlace(workPlace);
     workspaceController.clear();
+    priceController.clear();
     Navigator.of(context).pop();
   }
 
@@ -157,9 +170,8 @@ class _ChooseWorkingSpaceState extends State<ChooseWorkingSpace> {
                             return userProvider.currentUser.isAdmin
                                 ? Dismissible(
                                     onDismissed: (direction) {
-                                      workplaceModel.workPlacesList.removeAt(index);
                                       workplaceModel.workPlaceRepoitory
-                                          .deleteWorkPlace(workplaceModel.workPlacesList[index]);
+                                          .deleteWorkPlace(workplaceModel.workPlacesList.removeAt(index));
                                     },
                                     key: ValueKey(workplaceModel.workPlacesList[index]),
                                     child: WorkplaceItem(

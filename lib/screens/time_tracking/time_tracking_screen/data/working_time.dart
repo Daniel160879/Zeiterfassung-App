@@ -8,8 +8,10 @@ class WorkingTime {
   int seconds;
   int minutes;
   int hours;
+  int pricePerHours;
 
   WorkingTime({
+    required this.pricePerHours,
     required this.workingTimeId,
     required this.workday,
     required this.projectTitle,
@@ -28,14 +30,14 @@ class WorkingTime {
 
     final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return WorkingTime(
-      workingTimeId: doc.id,
-      workday: (data['workday'] as Timestamp).toDate(),
-      projectTitle: data['projectTitle'] as String,
-      workplaceTitle: data['workplaceTitle'] as String,
-      hours: data['hours'] as int,
-      minutes: data['minutes'] as int,
-      seconds: data['seconds'] as int,
-    );
+        workingTimeId: doc.id,
+        workday: (data['workday'] as Timestamp).toDate(),
+        projectTitle: data['projectTitle'] as String,
+        workplaceTitle: data['workplaceTitle'] as String,
+        hours: data['hours'] as int,
+        minutes: data['minutes'] as int,
+        seconds: data['seconds'] as int,
+        pricePerHours: data['pricePerHours'] as int);
   }
 
   Map<String, dynamic> toMap() {
@@ -46,6 +48,7 @@ class WorkingTime {
       'hours': hours,
       'minutes': minutes,
       'seconds': seconds,
+      'pricePerHours': pricePerHours
     };
   }
 }

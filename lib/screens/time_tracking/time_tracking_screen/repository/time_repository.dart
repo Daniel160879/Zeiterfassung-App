@@ -8,5 +8,5 @@ abstract class TimeRepository {
     WorkingTime workingTime,
     String userId,
   );
-  void deleteWorkTime(String workingtimeId, String userId);
+  void deleteWorkTime(WorkingTime workingTime, String userId);
 }

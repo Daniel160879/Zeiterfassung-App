@@ -8,9 +8,12 @@ import 'package:meine_zeiterfassungs_app/screens/auth/Reg%20und%20Log%20Screen/l
 class LogoutScreen extends StatelessWidget {
   const LogoutScreen({super.key});
 
+  Future<void> _signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final auth = FirebaseAuth.instance;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 80, 73, 72),
@@ -33,7 +36,7 @@ class LogoutScreen extends StatelessWidget {
                   ElevatedButton(
                       style: myHomeButtonStyle,
                       onPressed: () {
-                        auth.signOut();
+                        _signOut();
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
                       },
                       child: const Text(
