@@ -12,9 +12,7 @@ class TimerecordingProvider extends ChangeNotifier {
   TimeRecordingStatus timeRecordingStatus = TimeRecordingStatus.loaded;
   List<WorkingTime> workingTimesList = [];
   final AuthRepository authRepository;
-
   Project project;
-
   WorkPlace workPlace;
 
   TimerecordingProvider(this.timeRepository, this.authRepository, this.project, this.workPlace) {
@@ -29,8 +27,6 @@ class TimerecordingProvider extends ChangeNotifier {
       workingTime,
       userId,
     );
-    workingTimesList.add(workingTime);
-
     notifyListeners();
   }
 
