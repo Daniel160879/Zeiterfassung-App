@@ -1,0 +1,41 @@
+import 'package:flutter/material.dart';
+import 'package:meine_zeiterfassungs_app/src/features/screens/Users/Repository/user_repository.dart';
+import 'package:meine_zeiterfassungs_app/src/features/screens/Users/data/user.dart';
+
+enum UserStatus { loading, loaded, error }
+
+class UserProvider extends ChangeNotifier {
+  final UserRepository userRepository;
+  late Users currentUser;
+  UserStatus userStatus = UserStatus.loading;
+  List<Users> usersList = [];
+
+  UserProvider(this.userRepository) {
+    _loadEmployers();
+  }
+
+  Future<void> addEmployers(Users user) async {
+    await userRepository.setUserCompletion(user);
+    notifyListeners();
+  }
+
+  Future<void> loadCurrentUser(String id) async {
+    final users = await userRepository.loadUser(id);
+    currentUser = users;
+
+    notifyListeners();
+  }
+
+  Future<void> _loadEmployers() async {
+    try {
+      userRepository.users.listen((user) {
+        usersList = user;
+        userStatus = UserStatus.loaded;
+        notifyListeners();
+      });
+    } catch (e) {
+      userStatus = UserStatus.error;
+      notifyListeners();
+    }
+  }
+}

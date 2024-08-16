@@ -1,0 +1,46 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:meine_zeiterfassungs_app/src/decoration/buttonStyle/button_styles.dart';
+import 'package:meine_zeiterfassungs_app/src/decoration/style/decoration.dart';
+import 'package:meine_zeiterfassungs_app/src/decoration/theme/theme.dart';
+import 'package:meine_zeiterfassungs_app/src/features/screens/Logout/widget/appbar.dart';
+import 'package:meine_zeiterfassungs_app/src/features/screens/auth/Reg%20und%20Log%20Screen/login_screen.dart';
+
+class LogoutScreen extends StatelessWidget {
+  const LogoutScreen({super.key});
+
+  Future<void> _signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: customAppBar('Logout'),
+        body: Container(
+          decoration: myBoxdeco,
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Image.asset('assets/images/Feierabend.png'),
+                  Image.asset('assets/images/ausgestempelt.png'),
+                  ElevatedButton(
+                      style: myHomeButtonStyle,
+                      onPressed: () {
+                        _signOut();
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+                      },
+                      child: const Text(
+                        'Logout',
+                        style: myBttnTextStyle,
+                      ))
+                ],
+              ),
+            ),
+          ),
+        ));
+  }
+}
