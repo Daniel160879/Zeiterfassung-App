@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/src/decoration/style/decoration.dart';
 import 'package:meine_zeiterfassungs_app/src/decoration/theme/theme.dart';
+import 'package:meine_zeiterfassungs_app/src/features/auth/data/auth_repo.dart';
 import 'package:meine_zeiterfassungs_app/src/features/provider/timerec_provider.dart';
 import 'package:meine_zeiterfassungs_app/src/features/provider/user_provider.dart';
-import 'package:meine_zeiterfassungs_app/src/features/screens/auth/repository/auth_repo.dart';
 import 'package:meine_zeiterfassungs_app/src/features/screens/time_tracking/projectScreen/data/project.dart';
 import 'package:meine_zeiterfassungs_app/src/features/screens/time_tracking/time_tracking_screen/itemModel/pro_u_arbeitsplatz.dart';
 import 'package:meine_zeiterfassungs_app/src/features/screens/time_tracking/time_tracking_screen/itemModel/stop_watch.dart';

@@ -4,7 +4,7 @@ import 'package:meine_zeiterfassungs_app/image_logo.dart';
 import 'package:meine_zeiterfassungs_app/src/decoration/style/decoration.dart';
 import 'package:meine_zeiterfassungs_app/src/features/screens/home_startScreen/home_screen.dart';
 
-import '../Const/textfield_deco.dart';
+import '../../screens/auth/Const/textfield_deco.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

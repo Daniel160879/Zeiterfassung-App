@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/image_logo.dart';
 import 'package:meine_zeiterfassungs_app/src/decoration/style/decoration.dart';
 import 'package:meine_zeiterfassungs_app/src/decoration/theme/theme.dart';
+import 'package:meine_zeiterfassungs_app/src/features/auth/presentation/login_screen.dart';
 import 'package:meine_zeiterfassungs_app/src/features/screens/auth/Const/textfield_deco.dart';
-import 'package:meine_zeiterfassungs_app/src/features/screens/auth/Reg%20und%20Log%20Screen/login_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({

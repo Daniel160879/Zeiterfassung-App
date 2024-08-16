@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:meine_zeiterfassungs_app/src/config/app_sizes.dart';
 import 'package:meine_zeiterfassungs_app/src/decoration/theme/theme.dart';
-import 'package:meine_zeiterfassungs_app/src/features/provider/auth_provider.dart';
+import 'package:meine_zeiterfassungs_app/src/features/auth/data/auth_provider.dart';
 import 'package:meine_zeiterfassungs_app/src/features/provider/project_provider.dart';
 import 'package:meine_zeiterfassungs_app/src/features/screens/time_tracking/projectScreen/data/project.dart';
 import 'package:meine_zeiterfassungs_app/src/features/screens/time_tracking/working_space_screen/workingspace_screen.dart';
@@ -13,7 +14,7 @@ class ProjectItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(Sizes.p16),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Container(
             alignment: Alignment.center,
@@ -41,9 +42,7 @@ class ProjectItem extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 30,
-          )
+          gapH32
         ]));
   }
 }

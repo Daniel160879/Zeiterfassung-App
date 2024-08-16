@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:meine_zeiterfassungs_app/src/features/screens/auth/repository/auth_repo.dart';
+import 'package:meine_zeiterfassungs_app/src/features/auth/data/auth_repo.dart';
 
 enum AuthStatus { loading, loaded }
 

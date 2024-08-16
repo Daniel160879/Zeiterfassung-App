@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:meine_zeiterfassungs_app/src/features/provider/auth_provider.dart';
+import 'package:meine_zeiterfassungs_app/src/features/auth/data/auth_provider.dart';
 import 'package:meine_zeiterfassungs_app/src/features/provider/timerec_provider.dart';
 import 'package:meine_zeiterfassungs_app/src/features/screens/time_tracking/projectScreen/data/project.dart';
 import 'package:meine_zeiterfassungs_app/src/features/screens/time_tracking/time_tracking_screen/data/working_time.dart';

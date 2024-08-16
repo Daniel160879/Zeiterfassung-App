@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
-import 'package:meine_zeiterfassungs_app/src/features/provider/auth_provider.dart';
+import 'package:meine_zeiterfassungs_app/src/features/auth/data/auth_provider.dart';
 import 'package:meine_zeiterfassungs_app/src/features/screens/home_startScreen/home_screen.dart';
 import 'package:meine_zeiterfassungs_app/src/features/screens/home_startScreen/start_screen.dart';
 import 'package:provider/provider.dart';

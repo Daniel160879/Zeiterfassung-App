@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/src/decoration/buttonStyle/button_styles.dart';
 import 'package:meine_zeiterfassungs_app/src/decoration/style/decoration.dart';
 import 'package:meine_zeiterfassungs_app/src/decoration/theme/theme.dart';
+import 'package:meine_zeiterfassungs_app/src/features/auth/presentation/login_screen.dart';
 import 'package:meine_zeiterfassungs_app/src/features/screens/Logout/widget/appbar.dart';
-import 'package:meine_zeiterfassungs_app/src/features/screens/auth/Reg%20und%20Log%20Screen/login_screen.dart';
 
 class LogoutScreen extends StatelessWidget {
   const LogoutScreen({super.key});
