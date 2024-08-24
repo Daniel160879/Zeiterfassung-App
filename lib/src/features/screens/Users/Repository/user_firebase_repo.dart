@@ -9,8 +9,8 @@ class FirebaseEmployerRepository implements UserRepository {
   Stream<List<Users>> get userss {
     final userCollectionRef = _firestore.collection('user');
     final employerSnapshot = userCollectionRef.snapshots();
-    final employerStream =
-        employerSnapshot.map((snapshot) => snapshot.docs.map((e) => Users.fromFirestore(e)).toList());
+    final employerStream = employerSnapshot.map((snapshot) =>
+        snapshot.docs.map((e) => Users.fromFirestore(e)).toList());
     return employerStream;
   }
 
