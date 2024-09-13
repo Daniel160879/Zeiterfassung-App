@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/image_logo.dart';
+import 'package:meine_zeiterfassungs_app/src/config/app_sizes.dart';
+import 'package:meine_zeiterfassungs_app/src/config/palette.dart';
 import 'package:meine_zeiterfassungs_app/src/decoration/style/decoration.dart';
 import 'package:meine_zeiterfassungs_app/src/decoration/theme/theme.dart';
 import 'package:meine_zeiterfassungs_app/src/features/auth/presentation/login_screen.dart';
@@ -43,7 +45,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   }
 
   Future<void> signUp() async {
-    if (firstName.isEmpty || lastName.isEmpty || email.isEmpty || password.isEmpty) {
+    if (firstName.isEmpty ||
+        lastName.isEmpty ||
+        email.isEmpty ||
+        password.isEmpty) {
       const snackBar = SnackBar(
         content: Text("Fülle die offenen Felder aus"),
         backgroundColor: Colors.red,
@@ -51,7 +56,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
       try {
-        final newUser = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+        final newUser = await _auth.createUserWithEmailAndPassword(
+            email: email, password: password);
         if (newUser.user != null) {
           newUser.user!.sendEmailVerification();
           await newUser.user!.updateDisplayName('$firstName $lastName');
@@ -75,19 +81,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 80, 73, 72),
+        backgroundColor: Palette.standardAppColor,
         title: const Text('Registrierung', style: myBttnTextStyle),
       ),
       body: Container(
         decoration: myBoxdeco,
         child: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(Sizes.p24),
           child: ListView(
             children: [
               Column(
                 children: [
                   const SizedBox(
-                    height: 15,
+                    height: Sizes.p12,
                   ),
                   const MyLogo(),
                   const SizedBox(
@@ -138,10 +144,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     height: 42,
                   ),
                   ElevatedButton(
-                    style: const ButtonStyle(backgroundColor: WidgetStatePropertyAll(Color.fromARGB(255, 80, 73, 72))),
+                    style: const ButtonStyle(
+                        backgroundColor: WidgetStatePropertyAll(
+                            Color.fromARGB(255, 80, 73, 72))),
                     onPressed: () async {
                       await signUp();
-
+                      if (!mounted) return;
                       Navigator.push(
                         context,
                         MaterialPageRoute(

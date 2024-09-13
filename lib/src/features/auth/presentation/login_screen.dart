@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meine_zeiterfassungs_app/image_logo.dart';
+import 'package:meine_zeiterfassungs_app/src/config/palette.dart';
 import 'package:meine_zeiterfassungs_app/src/decoration/style/decoration.dart';
 import 'package:meine_zeiterfassungs_app/src/features/screens/home_startScreen/home_screen.dart';
 
@@ -126,9 +127,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 ElevatedButton(
                   style: const ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll(
-                      Color.fromARGB(255, 80, 73, 72),
-                    ),
+                    backgroundColor:
+                        WidgetStatePropertyAll(Palette.standardAppColor),
                   ),
                   onPressed: () async {
                     if (_auth.currentUser == null) {
@@ -136,7 +136,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       const CircularProgressIndicator();
                     } else if (_auth.currentUser != null) {
                       if (!context.mounted) return;
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
                         return const HomeScreen();
                       }));
                     } else {

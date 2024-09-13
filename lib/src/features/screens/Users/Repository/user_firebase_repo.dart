@@ -6,7 +6,7 @@ class FirebaseEmployerRepository implements UserRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
-  Stream<List<Users>> get userss {
+  Stream<List<Users>> get users {
     final userCollectionRef = _firestore.collection('user');
     final employerSnapshot = userCollectionRef.snapshots();
     final employerStream = employerSnapshot.map((snapshot) =>
@@ -33,8 +33,4 @@ class FirebaseEmployerRepository implements UserRepository {
     final docRef = userCallectionRef.doc();
     await docRef.set(user.toMap());
   }
-
-  @override
-  // TODO: implement users
-  Stream<List<Users>> get users => throw UnimplementedError();
 }

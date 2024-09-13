@@ -13,11 +13,11 @@ class TimelistToPdf extends StatelessWidget {
           appBar: AppBar(
               centerTitle: true,
               backgroundColor: const Color.fromARGB(255, 80, 73, 72),
-              title: const Text('Arbeitszeiten to pdf', style: myAppBarTextStyle)),
+              title:
+                  const Text('Arbeitszeiten to pdf', style: myAppBarTextStyle)),
           body: Center(
             child: Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
+              width: double.infinity,
               color: const Color.fromARGB(255, 80, 73, 72),
               child: ListView.builder(
                 shrinkWrap: true,
@@ -43,12 +43,15 @@ class TimelistToPdf extends StatelessWidget {
                                   height: 78,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'Vorname : ${model.adminTimeList[index].projectTitle}',
                                         style: const TextStyle(
-                                            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15),
                                       ),
                                     ],
                                   ),
